@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/constants/approuter.dart';
 import 'package:flutter_ecommerce/models/products_model.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomCard extends StatefulWidget {
   final String name;
@@ -27,12 +29,7 @@ class _CustomCardState<T extends CustomCard> extends State<T> {
   Widget buildCard() {
     return InkWell(
       onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => Placeholder(
-                    // product: widget.product!,
-                    )));
+        context.go(AppRouteConstants.productRoute);
       },
       child: buildCardnonTap(),
     );

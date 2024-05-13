@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_ecommerce/constants/Apirepo.dart';
+import 'package:flutter_ecommerce/constants/approuter.dart';
 // import 'package:flutter_ecommerce/constants/custom_card.dart'; // Corrected import
 import 'package:flutter_ecommerce/constants/custoomcard.dart';
 // import 'package:flutter_ecommerce/constants/math.dart'; // Corrected import
@@ -9,6 +8,15 @@ import 'package:flutter_ecommerce/features/home/bloc/home_bloc.dart';
 // import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce/models/products_model.dart';
+import 'package:go_router/go_router.dart';
+
+class AppCOlors {
+  static const Color primary = Color(0xff93DEFF);
+  static const Color secondary = Color(0xffF7F7F7);
+
+  static const Color darkPrimary = Color(0xff32643);
+  static const Color darkSecondary = Color(0xff606470);
+}
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key); // Corrected key parameter
@@ -34,18 +42,76 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        drawer: Drawer(),
-        appBar: AppBar(
-          title: Text('hello'),
-        ),
-        body: CustomScrollView(physics: BouncingScrollPhysics(), slivers: [
-          SliverToBoxAdapter(
-              child: Container(
-                  height: 730,
-                  width: MediaQuery.of(context).size.width,
-                  child: buildBloc()))
-        ]));
+    return SafeArea(
+      child: Scaffold(
+          // endDrawer: Drawer,
+          drawer: Drawer(
+            child: Column(
+              children: [
+                DrawerHeader(
+                  child: Text('Hello'),
+                  // curve: SawTooth(100),
+                ),
+                CircleAvatar(
+                  child: FlutterLogo(),
+                ),
+                InkWell(
+                  onTap: () {
+                    context.go(AppRouteConstants.categoriesRoute);
+                  },
+                  child: ListTile(
+                    title: Text('Categories'),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    context.go(AppRouteConstants.cartRoute);
+                  },
+                  child: ListTile(
+                    title: Text('Cart'),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    context.go(AppRouteConstants.profileRoute);
+                  },
+                  child: ListTile(
+                    title: Text('Profile'),
+                  ),
+                )
+              ],
+            ),
+          ),
+          backgroundColor: AppCOlors.secondary,
+          // drawer: Drawer(),
+          // appBar: AppBar(
+          //   title: Text('hello'),
+          // ),
+          body: CustomScrollView(physics: BouncingScrollPhysics(), slivers: [
+            SliverAppBar(
+              toolbarHeight: 100,
+              // shape: BeveledRectangleBorder(),
+              centerTitle: true,
+              backgroundColor: AppCOlors.primary,
+              stretch: true,
+              elevation: 50,
+              title: Text('Amazon Lite'),
+              actions: [
+                InkWell(
+                  onTap: () {
+                    context.go(AppRouteConstants.cartRoute);
+                  },
+                  child: Icon(Icons.shopping_cart),
+                )
+              ],
+            ),
+            SliverToBoxAdapter(
+                child: Container(
+                    height: 730,
+                    width: MediaQuery.of(context).size.width,
+                    child: buildBloc()))
+          ])),
+    );
   }
 
   Widget buildBloc() {

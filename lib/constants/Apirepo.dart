@@ -1,6 +1,3 @@
-import 'dart:math';
-
-import 'package:dio/dio.dart';
 import 'package:flutter_ecommerce/constants/apiservice.dart';
 import 'package:flutter_ecommerce/models/products_model.dart';
 
