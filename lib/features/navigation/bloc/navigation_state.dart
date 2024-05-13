@@ -1,0 +1,1 @@
+enum NavigationState {home, categories, cart, profile}

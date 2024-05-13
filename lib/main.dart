@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/constants/approuter.dart';
+import 'package:flutter_ecommerce/features/navigation/bloc/navigation_bloc.dart';
 // import 'package:flutter_ecommerce/features/home/home.dart';
 // import 'package:flutter_ecommerce/models/products_model.dart';
 
@@ -12,7 +12,8 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final NavigationCubit navigationCubit;
+  const MyApp({super.key, required this.navigationCubit});
 
   @override
   Widget build(BuildContext context) {
