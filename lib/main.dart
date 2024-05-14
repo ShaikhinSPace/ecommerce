@@ -12,16 +12,17 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final NavigationCubit navigationCubit;
-  const MyApp({super.key, required this.navigationCubit});
+  // final NavigationCubit navigationCubit;
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      // routeInformationParser: appRouter.goRouter.routeInformationParser,
-      // routerDelegate: appRouter.goRouter.routerDelegate,
-      routerConfig: router,
+      routeInformationProvider: AppRouter.router.routeInformationProvider,
+      routeInformationParser: AppRouter.router.routeInformationParser,
+      routerDelegate: AppRouter.router.routerDelegate,
+      // routerConfig: AppRoter,
     );
   }
 }

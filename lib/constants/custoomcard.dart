@@ -29,7 +29,7 @@ class _CustomCardState<T extends CustomCard> extends State<T> {
   Widget buildCard() {
     return InkWell(
       onTap: () {
-        context.go(AppRouteConstants.productRoute);
+        context.go(Approutes.productRoute);
       },
       child: buildCardnonTap(),
     );
