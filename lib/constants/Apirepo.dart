@@ -7,6 +7,14 @@ class ApiRepo {
   Future<Products> fetchProducts() {
     return _provider.fetchProducts();
   }
+
+  Future<List> fetchCategories() {
+    return _provider.fetchCategories();
+  }
+
+  Future<Products> fetchCategoryProducts(String category) async {
+    return await _provider.fetchCategoryProduct(category);
+  }
 }
 
 class NetworkError extends Error {}

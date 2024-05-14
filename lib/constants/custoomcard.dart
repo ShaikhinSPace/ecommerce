@@ -29,7 +29,7 @@ class _CustomCardState<T extends CustomCard> extends State<T> {
   Widget buildCard() {
     return InkWell(
       onTap: () {
-        context.go(Approutes.productRoute);
+        context.go(Approutes.productCategory);
       },
       child: buildCardnonTap(),
     );
@@ -37,7 +37,7 @@ class _CustomCardState<T extends CustomCard> extends State<T> {
 
   Widget buildCardnonTap() {
     return Card(
-      surfaceTintColor: Colors.blueGrey,
+      surfaceTintColor: Colors.white,
       shadowColor: Colors.white,
       elevation: 3,
       color: Colors.white,

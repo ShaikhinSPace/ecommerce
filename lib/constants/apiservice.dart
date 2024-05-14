@@ -16,12 +16,29 @@ class ApiProvider {
     }
   }
 
-  Future<List> fetchCategories() async {
-    List<String> categories = [];
+  Future<List<String>> fetchCategories() async {
     try {
-      Response response = await _dio.get('/products/categories');
-      print(response.data);
-      return categories = [response.data];
+      Response response = await _dio.get("/products/categories");
+      if (response.statusCode == 200) {
+        List<dynamic> data = response.data;
+        List<String> categories =
+            data.map((category) => category.toString()).toList();
+        return categories;
+      } else {
+        throw Exception('Failed to load categories');
+      }
+    } catch (e) {
+      print('Error: $e');
+      rethrow;
+    }
+  }
+
+  Future<Products> fetchCategoryProduct(String category) async {
+    // List<String>
+    try {
+      String categoryUrl = "/products/category/$category";
+      Response response = await _dio.get(categoryUrl);
+      return Products.fromJson(response.data);
     } catch (e) {
       rethrow;
     }

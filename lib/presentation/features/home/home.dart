@@ -4,15 +4,15 @@ import 'package:flutter_ecommerce/constants/approuter.dart';
 import 'package:flutter_ecommerce/constants/custoomcard.dart';
 // import 'package:flutter_ecommerce/constants/math.dart'; // Corrected import
 import 'package:flutter_ecommerce/constants/maths.dart';
-import 'package:flutter_ecommerce/features/home/bloc/home_bloc.dart';
+import 'package:flutter_ecommerce/presentation/features/home/bloc/home_bloc.dart';
 // import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce/models/products_model.dart';
 import 'package:go_router/go_router.dart';
 
 class AppCOlors {
-  static const Color primary = Color(0xff93DEFF);
-  static const Color secondary = Color(0xffF7F7F7);
+  static const Color primary = Color(0xff004aad);
+  static const Color secondary = Color(0xffE7F1FF);
 
   static const Color darkPrimary = Color(0xff32643);
   static const Color darkSecondary = Color(0xff606470);
@@ -43,32 +43,36 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-          body: CustomScrollView(physics: BouncingScrollPhysics(), slivers: [
-        SliverAppBar(
-          toolbarHeight: 100,
-          // shape: BeveledRectangleBorder(),
-          centerTitle: true,
-          backgroundColor: AppCOlors.primary,
-          stretch: true,
-          elevation: 50,
-          title: Text('Amazon Lite'),
-          actions: [
-            InkWell(
-              onTap: () {
-                // context.go(AppRouteConstants.cartRoute);
-              },
-              child: Icon(Icons.shopping_cart),
-            )
-          ],
-        ),
-        SliverToBoxAdapter(
-            child: Container(
-                height: 730,
-                width: MediaQuery.of(context).size.width,
-                child: buildBloc()))
-      ])),
-    );
+        child:
+            // Scaffold(
+            //     // backgroundColor: AppCOlors.secondary,
+            //     body:
+            CustomScrollView(physics: BouncingScrollPhysics(), slivers: [
+      // SliverAppBar(
+      //   toolbarHeight: 100,
+      //   // shape: BeveledRectangleBorder(),
+      //   centerTitle: true,
+      //   backgroundColor: AppCOlors.primary,
+      //   stretch: true,
+      //   elevation: 50,
+      //   title: Text('Amazon Lite'),
+      //   actions: [
+      //     InkWell(
+      //       onTap: () {
+      //         // context.go(AppRouteConstants.cartRoute);
+      //       },
+      //       child: Icon(Icons.shopping_cart),
+      //     )
+      //   ],
+      // ),
+      SliverToBoxAdapter(
+          child: Container(
+              height: 630,
+              width: MediaQuery.of(context).size.width,
+              child: buildBloc()))
+    ])
+        // ),
+        );
   }
 
   Widget buildBloc() {

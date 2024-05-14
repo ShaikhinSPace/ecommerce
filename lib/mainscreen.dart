@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce/constants/approuter.dart';
+import 'package:flutter_ecommerce/constants/customAppBar.dart';
 import 'package:flutter_ecommerce/constants/namednavbaritems.dart';
-import 'package:flutter_ecommerce/features/home/home.dart';
-import 'package:flutter_ecommerce/features/navigation/bloc/navigation_bloc.dart';
+import 'package:flutter_ecommerce/presentation/features/home/home.dart';
+import 'package:flutter_ecommerce/presentation/features/navigation/bloc/navigation_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class MainScreen extends StatelessWidget {
@@ -32,6 +33,8 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppCOlors.secondary,
+      appBar: CustomAppBar(),
       body: screen,
       bottomNavigationBar: _buildBottomNavBar(tabs),
     );
