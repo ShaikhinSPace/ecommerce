@@ -34,7 +34,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
             if (snapshot.hasData) {
               final user = snapshot.data!;
               return Column(
-                children: [Text(user.email)],
+                children: [
+                  Text(user.email),
+                  CircleAvatar(
+                    radius: 50,
+                    child: Image.network(
+                      user.image,
+                      height: 100,
+                      fit: BoxFit.fill,
+                    ),
+                  )
+                ],
               );
             } else if (snapshot.hasError) {
               return Center(

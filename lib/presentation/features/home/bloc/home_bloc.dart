@@ -17,6 +17,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       try {
         emit(ProductLoading());
         final productList = await apiRepo.fetchProducts();
+        print("list::${productList.products!.first}");
         emit(ProductLoaded(productList));
       } on NetworkError {
         emit(ProductError('error'));

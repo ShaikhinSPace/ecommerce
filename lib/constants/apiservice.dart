@@ -2,7 +2,10 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_ecommerce/authbloc/sharedprefsutil.dart';
+import 'package:flutter_ecommerce/models/cart_model.dart';
 import 'package:flutter_ecommerce/models/products_model.dart';
+import 'package:flutter_ecommerce/models/user_moel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:ecom/models/product_model.dart';
 // import 'package:flutter_ecommerce/models/products_model.dart';
@@ -43,6 +46,18 @@ class ApiProvider {
       String categoryUrl = "/products/category/$category";
       Response response = await _dio.get(categoryUrl);
       return Products.fromJson(response.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<Cart> fetchCart() async {
+    User? data = await SharedPrefsUtils.getUser();
+    int userid = data!.id;
+    try {
+      Response response = await _dio.get('/carts/user/$userid');
+      print("response:: ${response.data}");
+      return Cart.fromJson(response.data);
     } catch (e) {
       rethrow;
     }

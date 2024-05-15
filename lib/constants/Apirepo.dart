@@ -1,4 +1,5 @@
 import 'package:flutter_ecommerce/constants/apiservice.dart';
+import 'package:flutter_ecommerce/models/cart_model.dart';
 import 'package:flutter_ecommerce/models/products_model.dart';
 
 class ApiRepo {
@@ -14,6 +15,10 @@ class ApiRepo {
 
   Future<Products> fetchCategoryProducts(String category) async {
     return await _provider.fetchCategoryProduct(category);
+  }
+
+  Future<Cart> fetchCart() {
+    return _provider.fetchCart();
   }
 }
 
