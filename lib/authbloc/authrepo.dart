@@ -1,10 +1,12 @@
 // import 'dart:convert';
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_ecommerce/models/authusermodel.dart';
 // import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/models/user_moel.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRepo {
   final Dio _dio = Dio(BaseOptions(baseUrl: 'https://dummyjson.com'));
@@ -63,17 +65,17 @@ class AuthRepo {
     }
   }
 
-  Future<void> authenticate(String username, String password) async {
-    User user = await login(username, password);
-    await fetchUser(user.token);
-  }
+  // Future<void> authenticate(String username, String password) async {
+  //   User user = await login(username, password);
+  //   await fetchUser(user.token);
+  // }
 
-  Future<AuthUser> getData(String username, String password) async {
-    try {
-      await authenticate(username, password);
-      return AuthUser.fromJson({});
-    } catch (e) {
-      rethrow;
-    }
-  }
+  // Future<AuthUser> getData(String username, String password) async {
+  //   try {
+  //     await authenticate(username, password);
+  //     return AuthUser.fromJson({});
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
 }

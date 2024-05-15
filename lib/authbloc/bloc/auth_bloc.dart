@@ -1,13 +1,19 @@
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
+// import 'dart:io';
 
-part 'auth_event.dart';
-part 'auth_state.dart';
+// import 'package:bloc/bloc.dart';
+// import 'package:equatable/equatable.dart';
+// import 'package:flutter_ecommerce/authbloc/authrepo.dart';
+// import 'package:flutter_ecommerce/authbloc/sharedprefsutil.dart';
 
-class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc() : super(AuthInitial()) {
-    on<AuthEvent>((event, emit) {
-      // TODO: implement event handler
-    });
-  }
-}
+// part 'auth_event.dart';
+// part 'auth_state.dart';
+
+// class AuthBloc extends Bloc<AuthEvent, AuthState> {
+//   final AuthRepo authRepo;
+//   final SharedPrefsUtils sharedPrefsUtils;
+//   AuthBloc(this.authRepo,this.sharedPrefsUtils) : super(AuthInitial()) {
+   
+//    @override
+//    Stream<AuthState> mapEventToState()
+//   }
+// }

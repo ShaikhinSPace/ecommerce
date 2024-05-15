@@ -18,7 +18,7 @@ void main() async {
     String password = '0lelplR';
 
     test('getData', () async {
-      final authUser = await authRepo.getData(username, password);
+      final authUser = await authRepo.login(username, password);
       return authUser;
     });
   });

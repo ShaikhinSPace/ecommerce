@@ -13,6 +13,7 @@ class _LoginPageState extends State<LoginPage> {
     final _formkey = GlobalKey<FormState>();
     return Scaffold(
       body: Form(
+        key: _formkey,
         child: Column(
           children: [Text('Login')],
         ),

@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_ecommerce/models/products_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:ecom/models/product_model.dart';
 // import 'package:flutter_ecommerce/models/products_model.dart';
 
@@ -44,3 +48,16 @@ class ApiProvider {
     }
   }
 }
+
+// class SharedPrefsUtils {
+//   static const String userDataKey = 'userData';
+
+//   static Future<void> saveUserData(Map<String, dynamic> userData) async {
+//     SharedPreferences prefs = await SharedPreferences.getInstance();
+//     await prefs.setString(userDataKey, jsonEncode(userData));
+//   }
+
+//   static Future<Map<String,dynamic>> getUserdata()async { 
+//     SharedPreferences sp = await SharedPreferences.ge
+//   }
+// }
