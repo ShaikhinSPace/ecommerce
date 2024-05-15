@@ -7,6 +7,7 @@ class User {
   String gender;
   String image;
   String token;
+  final bool? isLoggedIn;
 
   User(
       {required this.id,
@@ -16,7 +17,8 @@ class User {
       required this.lastName,
       required this.gender,
       required this.image,
-      required this.token});
+      required this.token,
+      this.isLoggedIn = false});
 
   factory User.fromJson(Map<String, dynamic> json) => User(
       id: json['id'],
@@ -26,5 +28,6 @@ class User {
       lastName: json['lastName'] ?? 'last name',
       gender: json['gender'] ?? 'male',
       image: json['image'] ?? 'image',
-      token: json['token'] ?? 'token');
+      token: json['token'] ?? 'token',
+      isLoggedIn: json['isLoggedIn'] ?? 'isLoggedIn');
 }

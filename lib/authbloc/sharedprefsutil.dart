@@ -2,29 +2,33 @@ import 'package:flutter_ecommerce/models/user_moel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefsUtils {
-  Future saveUser(User user) async {
-    SharedPreferences sp = await SharedPreferences.getInstance();
-    sp.setInt('userId', user.id);
-    sp.setString('username', user.username);
-    sp.setString('email', user.email);
-    sp.setString('firstName', user.firstName);
-    sp.setString('lastName', user.lastName);
-    sp.setString('gender', user.gender);
-    sp.setString('image', user.image);
-    sp.setString('token', user.token);
+  static late SharedPreferences _preferences;
+
+  static Future<void> init() async {
+    _preferences = await SharedPreferences.getInstance();
   }
 
-  Future<User> getUser() async {
-    final SharedPreferences sp = await SharedPreferences.getInstance();
+  static Future<void> saveUser(User user) async {
+    _preferences.setInt('userId', user.id);
+    _preferences.setString('username', user.username);
+    _preferences.setString('email', user.email);
+    _preferences.setString('firstName', user.firstName);
+    _preferences.setString('lastName', user.lastName);
+    _preferences.setString('gender', user.gender);
+    _preferences.setString('image', user.image);
+    _preferences.setString('token', user.token);
+  }
+
+  static Future<User?> getUser() async {
     try {
-      int id = sp.getInt('userId') as int;
-      String username = sp.getString('username') as String;
-      String email = sp.getString('email') as String;
-      String firstName = sp.getString('firstName') as String;
-      String lastName = sp.getString('lastName') as String;
-      String gender = sp.getString('gender') as String;
-      String image = sp.getString('image') as String;
-      String token = sp.getString('token') as String;
+      int id = _preferences.getInt('userId') ?? 0;
+      String username = _preferences.getString('username') ?? '';
+      String email = _preferences.getString('email') ?? '';
+      String firstName = _preferences.getString('firstName') ?? '';
+      String lastName = _preferences.getString('lastName') ?? '';
+      String gender = _preferences.getString('gender') ?? '';
+      String image = _preferences.getString('image') ?? '';
+      String token = _preferences.getString('token') ?? '';
       return User(
           id: id,
           username: username,
@@ -39,15 +43,16 @@ class SharedPrefsUtils {
     }
   }
 
-  void removeUser() async {
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    sp.remove('id');
-    sp.remove('username');
-    sp.remove('email');
-    sp.remove('firstName');
-    sp.remove('lastName');
-    sp.remove('gender');
-    sp.remove('image');
-    sp.remove('token');
+  static Future<bool> isLoggedIn() async {
+    var data = _preferences.getString('token');
+    if (data!.isNotEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static Future<void> removeUser() async {
+    await _preferences.clear();
   }
 }

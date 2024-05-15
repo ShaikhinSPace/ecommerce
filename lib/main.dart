@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/authbloc/sharedprefsutil.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_ecommerce/authbloc/authrepo.dart';
+import 'package:flutter_ecommerce/authbloc/authprovider.dart';
 import 'package:flutter_ecommerce/constants/approuter.dart';
 import 'package:flutter_ecommerce/models/user_moel.dart';
 import 'package:flutter_ecommerce/presentation/features/navigation/bloc/navigation_bloc.dart';
@@ -8,20 +9,9 @@ import 'package:flutter_ecommerce/presentation/features/navigation/bloc/navigati
 // import 'package:flutter_ecommerce/models/products_model.dart';
 
 void main() async {
-  group('AuthRepo', () {
-    late AuthRepo authRepo;
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharedPrefsUtils.init();
 
-    setUp(() {
-      authRepo = AuthRepo();
-    });
-    String username = 'kminchelle';
-    String password = '0lelplR';
-
-    test('getData', () async {
-      final authUser = await authRepo.login(username, password);
-      return authUser;
-    });
-  });
   runApp(MyApp());
 }
 
