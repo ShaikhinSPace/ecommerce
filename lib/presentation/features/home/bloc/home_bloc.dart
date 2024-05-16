@@ -2,6 +2,7 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/authbloc/sharedprefsutil.dart';
 import 'package:flutter_ecommerce/constants/Apirepo.dart';
 import 'package:flutter_ecommerce/models/products_model.dart';
 import 'package:bloc/bloc.dart';
@@ -16,8 +17,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<LoadProductsEvent>((event, emit) async {
       try {
         emit(ProductLoading());
-        final productList = await apiRepo.fetchProducts();
-        print("list::${productList.products!.first}");
+        final productList = await SharedPrefsUtils.getProducts();
+        print("list::${productList!.products!.length}");
         emit(ProductLoaded(productList));
       } on NetworkError {
         emit(ProductError('error'));

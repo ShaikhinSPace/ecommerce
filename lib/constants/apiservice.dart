@@ -1,13 +1,10 @@
-import 'dart:convert';
-import 'dart:ffi';
-
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
+// import 'package:flutter/foundation.dart';
 import 'package:flutter_ecommerce/authbloc/sharedprefsutil.dart';
-import 'package:flutter_ecommerce/models/cart_model.dart';
+import 'package:flutter_ecommerce/models/cart_model.dart' as Cart;
 import 'package:flutter_ecommerce/models/products_model.dart';
 import 'package:flutter_ecommerce/models/user_moel.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:ecom/models/product_model.dart';
 // import 'package:flutter_ecommerce/models/products_model.dart';
 
@@ -52,13 +49,21 @@ class ApiProvider {
     }
   }
 
-  Future<Cart> fetchCart() async {
+  Future<Cart.Cart> fetchCart() async {
     User? data = await SharedPrefsUtils.getUser();
     int userid = data!.id;
     try {
-      Response response = await _dio.get('/carts/user/$userid');
+      Response response = await _dio.get('/users/$userid/carts');
       print("response:: ${response.data}");
-      return Cart.fromJson(response.data);
+      return Cart.Cart.fromJson(response.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> removeFromCart(int itemid) async {
+    try {
+      await _dio.delete('/carts/$itemid');
     } catch (e) {
       rethrow;
     }

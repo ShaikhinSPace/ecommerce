@@ -21,8 +21,14 @@ import 'package:go_router/go_router.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPrefsUtils.init();
-  bool islogin = await SharedPrefsUtils.isLoggedIn();
+  await SharedPrefsUtils.getUser();
+  ApiProvider apiProvider = ApiProvider();
+  final products = await apiProvider.fetchProducts();
+  SharedPrefsUtils.saveProducts(products);
+  final categories = await apiProvider.fetchCategories();
+  SharedPrefsUtils.saveCategories(categories);
 
+  // await SharedPrefsUtils.isLoggedIn();
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(

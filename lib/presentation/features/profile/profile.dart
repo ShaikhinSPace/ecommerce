@@ -43,7 +43,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: 100,
                       fit: BoxFit.fill,
                     ),
-                  )
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        SharedPrefsUtils.removeUser();
+                      },
+                      child: Text('logout')),
+                  Text(user.email)
                 ],
               );
             } else if (snapshot.hasError) {

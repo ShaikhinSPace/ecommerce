@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce/authbloc/login.dart';
@@ -27,12 +29,10 @@ abstract class Approutes {
 class AppRouter {
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();
   static final _shellNavigatorKey = GlobalKey<NavigatorState>();
-  static final Future<bool> isLogin = SharedPrefsUtils.isLoggedIn();
+  // static final Future<bool> isLogin = SharedPrefsUtils.isLoggedIn();
 
   static final GoRouter _router = GoRouter(
-    initialLocation: isLogin == false
-        ? Approutes.homeRoute
-        : Approutes.loginRoute, // Set initial location to loginRoute
+    initialLocation: Approutes.loginRoute, // Set initial location to loginRoute
     navigatorKey: _rootNavigatorKey,
     routes: <RouteBase>[
       GoRoute(

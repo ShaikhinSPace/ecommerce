@@ -4,7 +4,7 @@ abstract class HomeState extends Equatable {
   const HomeState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class ProductInitial extends HomeState {}
@@ -20,9 +20,9 @@ class ProductError extends HomeState {
 }
 
 class ProductLoaded extends HomeState {
-  final Products products;
+  final Products? products;
   const ProductLoaded(this.products);
 
   @override
-  List<Object> get props => [products];
+  List<Object?> get props => [products];
 }

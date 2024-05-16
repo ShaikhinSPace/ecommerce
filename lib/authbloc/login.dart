@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce/authbloc/bloc/auth_bloc.dart';
+import 'package:flutter_ecommerce/authbloc/sharedprefsutil.dart';
 import 'package:flutter_ecommerce/constants/approuter.dart';
 import 'package:flutter_ecommerce/presentation/features/home/home.dart';
 import 'package:go_router/go_router.dart';
@@ -79,6 +80,8 @@ class LoginForm extends StatelessWidget {
                         _usernameController.text,
                         _passwordController.text,
                       ));
+                      SharedPrefsUtils.getUser();
+                      SharedPrefsUtils.isLoggedIn();
                       context.go(Approutes.homeRoute);
                     },
                     child: Text(
