@@ -25,18 +25,5 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthFailure(e.toString()));
       }
     });
-
-    // @override
-    // Stream<AuthState> mapEventToState(AuthEvent event) async* {
-    //   if (event is LoginUserEvent) {
-    //     yield AuthInitial();
-    //     try {
-    //       User user = await authRepo.loginUser(event.username, event.password);
-    //       yield AuthSuccess(user);
-    //     } on DioException catch (e) {
-    //       yield AuthFailure(e.toString());
-    //     }
-    //   }
-    // }
   }
 }

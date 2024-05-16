@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce/authbloc/login.dart';
+import 'package:flutter_ecommerce/authbloc/sharedprefsutil.dart';
+import 'package:flutter_ecommerce/constants/productpage.dart';
 import 'package:flutter_ecommerce/presentation/features/ProductCategories/productCategory.dart';
 import 'package:flutter_ecommerce/presentation/features/cart/cart.dart';
 import 'package:flutter_ecommerce/presentation/features/categories/categories.dart';
@@ -25,9 +27,12 @@ abstract class Approutes {
 class AppRouter {
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();
   static final _shellNavigatorKey = GlobalKey<NavigatorState>();
+  static final Future<bool> isLogin = SharedPrefsUtils.isLoggedIn();
 
   static final GoRouter _router = GoRouter(
-    initialLocation: Approutes.loginRoute, // Set initial location to loginRoute
+    initialLocation: isLogin == false
+        ? Approutes.homeRoute
+        : Approutes.loginRoute, // Set initial location to loginRoute
     navigatorKey: _rootNavigatorKey,
     routes: <RouteBase>[
       GoRoute(
@@ -49,6 +54,12 @@ class AppRouter {
             path: Approutes.homeRoute,
             pageBuilder: (context, state) =>
                 NoTransitionPage(child: HomeScreen()),
+            //TODO: define the routes propely here
+
+            // routes: [
+            //   GoRoute(path: Approutes.productRoute,
+            //   pageBuilder: (context, state) => ProductPage(product: product),)
+            // ]
           ),
           GoRoute(
             parentNavigatorKey: _shellNavigatorKey,

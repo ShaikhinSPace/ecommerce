@@ -26,15 +26,6 @@ class CustomCard extends StatefulWidget {
 }
 
 class _CustomCardState<T extends CustomCard> extends State<T> {
-  Widget buildCard() {
-    return InkWell(
-      onTap: () {
-        context.go(Approutes.productCategory);
-      },
-      child: buildCardnonTap(),
-    );
-  }
-
   Widget buildCardnonTap() {
     return Card(
       surfaceTintColor: Colors.white,
@@ -87,7 +78,8 @@ class _CustomCardState<T extends CustomCard> extends State<T> {
                       decoration: TextDecoration.lineThrough),
                 ),
               ],
-            )
+            ),
+            ElevatedButton(onPressed: () {}, child: Icon(Icons.shopping_bag))
           ],
         ),
       ),
@@ -112,6 +104,6 @@ class _CustomCardState<T extends CustomCard> extends State<T> {
 
   @override
   Widget build(BuildContext context) {
-    return buildCard();
+    return buildCardnonTap();
   }
 }

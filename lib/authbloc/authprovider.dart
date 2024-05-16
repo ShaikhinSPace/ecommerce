@@ -49,6 +49,8 @@ class AuthProvider {
     );
   }
 
+  // Future<
+
   // Future<void> fetchUser(String token) async {
   //   try {
   //     Response response = await _dio.get('/auth/me',

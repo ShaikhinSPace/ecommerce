@@ -112,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildCard(BuildContext context, Products model) {
     return GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, childAspectRatio: 0.8),
+            crossAxisCount: 2, childAspectRatio: 0.75),
         itemCount: model.products!.length,
         itemBuilder: (context, index) {
           final String title = model.products![index].title ?? '';
