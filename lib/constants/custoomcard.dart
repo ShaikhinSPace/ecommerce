@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/constants/approuter.dart';
 import 'package:flutter_ecommerce/models/products_model.dart';
+import 'package:flutter_ecommerce/presentation/features/home/bloc/home_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class CustomCard extends StatefulWidget {
@@ -11,6 +12,7 @@ class CustomCard extends StatefulWidget {
   final int discountPercent;
   final String image;
   final String rating;
+  final void Function() onpressed;
   CustomCard(
       {super.key,
       this.product,
@@ -19,7 +21,8 @@ class CustomCard extends StatefulWidget {
       required this.discountedprice,
       required this.image,
       required this.price,
-      required this.rating});
+      required this.rating,
+      required this.onpressed});
 
   @override
   State<CustomCard> createState() => _CustomCardState();
@@ -79,7 +82,8 @@ class _CustomCardState<T extends CustomCard> extends State<T> {
                 ),
               ],
             ),
-            ElevatedButton(onPressed: () {}, child: Icon(Icons.shopping_bag))
+            ElevatedButton(
+                onPressed: widget.onpressed, child: Icon(Icons.shopping_bag))
           ],
         ),
       ),

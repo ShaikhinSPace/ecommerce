@@ -81,7 +81,6 @@ class LoginForm extends StatelessWidget {
                         _passwordController.text,
                       ));
                       SharedPrefsUtils.getUser();
-                      SharedPrefsUtils.isLoggedIn();
                       context.go(Approutes.homeRoute);
                     },
                     child: Text(

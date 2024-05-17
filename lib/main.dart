@@ -5,8 +5,9 @@ import 'package:flutter_ecommerce/authbloc/sharedprefsutil.dart';
 import 'package:flutter_ecommerce/constants/apiservice.dart';
 import 'package:flutter_ecommerce/mainscreen.dart';
 import 'package:flutter_ecommerce/models/cart_model.dart';
-import 'package:flutter_ecommerce/presentation/features/cart/bloc/cart_bloc.dart';
-import 'package:flutter_ecommerce/presentation/features/cart/cart.dart';
+import 'package:flutter_ecommerce/presentation/cart/bloc/cart_bloc.dart';
+import 'package:flutter_ecommerce/presentation/cart/cart.dart';
+
 import 'package:flutter_ecommerce/presentation/features/categories/bloc/categories_bloc.dart';
 import 'package:flutter_ecommerce/presentation/features/home/bloc/home_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -21,12 +22,15 @@ import 'package:go_router/go_router.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPrefsUtils.init();
-  await SharedPrefsUtils.getUser();
-  ApiProvider apiProvider = ApiProvider();
-  final products = await apiProvider.fetchProducts();
-  SharedPrefsUtils.saveProducts(products);
-  final categories = await apiProvider.fetchCategories();
-  SharedPrefsUtils.saveCategories(categories);
+  // // await SharedPrefsUtils.getUser();
+  // ApiProvider apiProvider = ApiProvider();
+  // final products = await apiProvider.fetchProducts();
+  // SharedPrefsUtils.saveProducts(products);
+  // final categories = await apiProvider.fetchCategories();
+  // SharedPrefsUtils.saveCategories(categories);
+  // final cart = await apiProvider.fetchCart();
+  // print("data::::::${cart.carts![0].product![0].brand}");
+  // SharedPrefsUtils.saveCart(cart);
 
   // await SharedPrefsUtils.isLoggedIn();
   runApp(MultiBlocProvider(
@@ -40,11 +44,7 @@ void main() async {
       BlocProvider(
         create: (context) => CartBloc(),
         child: CartScreen(),
-      ),
-      // BlocProvider(
-      //   create: (context) => profBloc(),
-      //   child: Container(),
-      // )
+      )
     ],
     child: MyApp(),
   ));

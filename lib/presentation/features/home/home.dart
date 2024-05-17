@@ -1,4 +1,7 @@
+import 'package:dio/io.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/authbloc/sharedprefsutil.dart';
+import 'package:flutter_ecommerce/constants/apiservice.dart';
 import 'package:flutter_ecommerce/constants/approuter.dart';
 // import 'package:flutter_ecommerce/constants/custom_card.dart'; // Corrected import
 import 'package:flutter_ecommerce/constants/custoomcard.dart';
@@ -30,6 +33,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    SharedPrefsUtils.saveCart();
+
     homeBloc.add(LoadProductsEvent());
     super.initState();
   }
@@ -124,6 +129,10 @@ class _HomeScreenState extends State<HomeScreen> {
               calculatePrice(discountpercent, price).toString();
           final String image = model.products![index].thumbnail ?? '';
           return CustomCard(
+            onpressed: () {
+              // final product = model.products![index];
+              // BlocProvider.of<CartBloc>(context).add(AddProductToCart(product));
+            },
             name: title,
             discountPercent: discountpercent,
             discountedprice: discountedprice,

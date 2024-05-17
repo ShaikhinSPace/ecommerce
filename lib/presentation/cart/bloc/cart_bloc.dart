@@ -1,5 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/physics.dart';
+import 'package:flutter_ecommerce/authbloc/sharedprefsutil.dart';
 import 'package:flutter_ecommerce/constants/Apirepo.dart';
 import 'package:flutter_ecommerce/models/cart_model.dart';
 
@@ -8,15 +12,14 @@ part 'cart_state.dart';
 
 class CartBloc extends Bloc<CartEvent, CartState> {
   CartBloc() : super(CartInitial()) {
-    final ApiRepo apiRepo = ApiRepo();
-    on<LoadCartEvent>((event, emit) async {
+    on<onCartLoadEvent>((event, emit) async {
       try {
         emit(CartInitial());
-        final cart = await apiRepo.fetchCart();
-        print("cart:::${cart.carts!.length}");
+        Cart? cart = await SharedPrefsUtils.getCart();
+
         emit(CartLoaded(cart));
-      } on NetworkError {
-        emit(CartError('error'));
+      } catch (e) {
+        emit(CartFailed(e.toString()));
       }
     });
   }

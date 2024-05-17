@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/constants/apiservice.dart';
+import 'package:flutter_ecommerce/models/cart_model.dart';
 import 'package:flutter_ecommerce/models/products_model.dart';
 import 'package:flutter_ecommerce/models/user_moel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -57,14 +59,11 @@ class SharedPrefsUtils {
     }
   }
 
-  static Future<bool> isLoggedIn() async {
-    var data = _preferences.getString('token');
-    if (data!.isNotEmpty) {
-      print('bool:::true');
-
-      return true;
-    } else {
-      print('bool:::false');
+  Future<bool> isLoggedIn() async {
+    try {
+      final token = _preferences.getString('token');
+      return token?.isNotEmpty ?? false;
+    } catch (e) {
       return false;
     }
   }
@@ -95,5 +94,17 @@ class SharedPrefsUtils {
       return cats;
     }
     return [];
+  }
+
+  static Future<void> saveCart() async {
+    Future<Cart> cartFuture = ApiProvider().fetchCart();
+    Cart cart = await cartFuture;
+    await _preferences.setString('cart', jsonEncode(cart));
+  }
+
+  static Future<Cart?> getCart() async {
+    final cartJson = _preferences.getString('cart');
+    if (cartJson == null) return null;
+    return Cart.fromJson(jsonDecode(cartJson));
   }
 }

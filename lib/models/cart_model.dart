@@ -26,10 +26,6 @@ class Cart {
         limit: limit ?? this.limit,
       );
 
-  factory Cart.fromRawJson(String str) => Cart.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
   factory Cart.fromJson(Map<String, dynamic> json) => Cart(
         carts: json["carts"] == null
             ? []
@@ -52,7 +48,7 @@ class Cart {
 
 class CartElement {
   final int? id;
-  final List<Product>? products;
+  final List<CartProduct>? products;
   final int? total;
   final int? discountedTotal;
   final int? userId;
@@ -71,7 +67,7 @@ class CartElement {
 
   CartElement copyWith({
     int? id,
-    List<Product>? products,
+    List<CartProduct>? products,
     int? total,
     int? discountedTotal,
     int? userId,
@@ -88,17 +84,12 @@ class CartElement {
         totalQuantity: totalQuantity ?? this.totalQuantity,
       );
 
-  factory CartElement.fromRawJson(String str) =>
-      CartElement.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
   factory CartElement.fromJson(Map<String, dynamic> json) => CartElement(
         id: json["id"],
         products: json["products"] == null
             ? []
-            : List<Product>.from(
-                json["products"]!.map((x) => Product.fromJson(x))),
+            : List<CartProduct>.from(
+                json["products"]!.map((x) => CartProduct.fromJson(x))),
         total: json["total"],
         discountedTotal: json["discountedTotal"],
         userId: json["userId"],
@@ -119,7 +110,7 @@ class CartElement {
       };
 }
 
-class Product {
+class CartProduct {
   final int? id;
   final String? title;
   final int? price;
@@ -129,7 +120,7 @@ class Product {
   final int? discountedPrice;
   final String? thumbnail;
 
-  Product({
+  CartProduct({
     this.id,
     this.title,
     this.price,
@@ -140,7 +131,7 @@ class Product {
     this.thumbnail,
   });
 
-  Product copyWith({
+  CartProduct copyWith({
     int? id,
     String? title,
     int? price,
@@ -150,7 +141,7 @@ class Product {
     int? discountedPrice,
     String? thumbnail,
   }) =>
-      Product(
+      CartProduct(
         id: id ?? this.id,
         title: title ?? this.title,
         price: price ?? this.price,
@@ -161,11 +152,7 @@ class Product {
         thumbnail: thumbnail ?? this.thumbnail,
       );
 
-  factory Product.fromRawJson(String str) => Product.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory Product.fromJson(Map<String, dynamic> json) => Product(
+  factory CartProduct.fromJson(Map<String, dynamic> json) => CartProduct(
         id: json["id"],
         title: json["title"],
         price: json["price"],

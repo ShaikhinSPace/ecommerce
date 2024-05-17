@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 // import 'package:flutter/foundation.dart';
 import 'package:flutter_ecommerce/authbloc/sharedprefsutil.dart';
-import 'package:flutter_ecommerce/models/cart_model.dart' as Cart;
+import 'package:flutter_ecommerce/models/cart_model.dart';
 import 'package:flutter_ecommerce/models/products_model.dart';
 import 'package:flutter_ecommerce/models/user_moel.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
@@ -49,21 +49,13 @@ class ApiProvider {
     }
   }
 
-  Future<Cart.Cart> fetchCart() async {
+  Future<Cart> fetchCart() async {
     User? data = await SharedPrefsUtils.getUser();
     int userid = data!.id;
     try {
       Response response = await _dio.get('/users/$userid/carts');
       print("response:: ${response.data}");
-      return Cart.Cart.fromJson(response.data);
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  Future<void> removeFromCart(int itemid) async {
-    try {
-      await _dio.delete('/carts/$itemid');
+      return Cart.fromJson(response.data);
     } catch (e) {
       rethrow;
     }
