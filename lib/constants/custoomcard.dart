@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/constants/approuter.dart';
 import 'package:flutter_ecommerce/models/products_model.dart';
 import 'package:flutter_ecommerce/presentation/features/home/bloc/home_bloc.dart';
+import 'package:flutter_ecommerce/presentation/features/home/home.dart';
 import 'package:go_router/go_router.dart';
 
 class CustomCard extends StatefulWidget {
@@ -82,8 +83,26 @@ class _CustomCardState<T extends CustomCard> extends State<T> {
                 ),
               ],
             ),
+            SizedBox(
+              height: 10,
+            ),
             ElevatedButton(
-                onPressed: widget.onpressed, child: Icon(Icons.shopping_bag))
+                style: ButtonStyle(
+                    foregroundColor:
+                        MaterialStatePropertyAll(AppCOlors.secondary),
+                    backgroundColor:
+                        MaterialStatePropertyAll(AppCOlors.primary)),
+                onPressed: widget.onpressed,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text('Add to Cart'),
+                    Icon(
+                      Icons.shopping_cart,
+                      size: 20,
+                    ),
+                  ],
+                ))
           ],
         ),
       ),

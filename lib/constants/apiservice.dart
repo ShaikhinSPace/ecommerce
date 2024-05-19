@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 // import 'package:flutter/foundation.dart';
 import 'package:flutter_ecommerce/authbloc/sharedprefsutil.dart';
+import 'package:flutter_ecommerce/models/authUser.dart';
 import 'package:flutter_ecommerce/models/cart_model.dart';
 import 'package:flutter_ecommerce/models/products_model.dart';
 import 'package:flutter_ecommerce/models/user_moel.dart';
@@ -56,6 +58,18 @@ class ApiProvider {
       Response response = await _dio.get('/users/$userid/carts');
       print("response:: ${response.data}");
       return Cart.fromJson(response.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<AuthUser> fetchUser() async {
+    User? data = await SharedPrefsUtils.getUser();
+    String token = data!.token;
+    try {
+      Response response = await _dio.get('/auth/me',
+          options: Options(headers: {'Authorization': 'Bearer $token'}));
+      return AuthUser.fromJson(response.data);
     } catch (e) {
       rethrow;
     }

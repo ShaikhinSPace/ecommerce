@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/constants/apiservice.dart';
+import 'package:flutter_ecommerce/models/authUser.dart';
 import 'package:flutter_ecommerce/models/cart_model.dart';
+import 'package:flutter_ecommerce/models/extension.dart';
 import 'package:flutter_ecommerce/models/products_model.dart';
 import 'package:flutter_ecommerce/models/user_moel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -106,5 +108,17 @@ class SharedPrefsUtils {
     final cartJson = _preferences.getString('cart');
     if (cartJson == null) return null;
     return Cart.fromJson(jsonDecode(cartJson));
+  }
+
+  static Future<void> setAuthUser() async {
+    Future<AuthUser> authUser = ApiProvider().fetchUser();
+    AuthUser abc = await authUser;
+    await _preferences.setString('auth_user', jsonEncode(abc));
+  }
+
+  static Future<AuthUser?> getAuthUser() async {
+    String? userjson = _preferences.getString('auth_user');
+    if (userjson == null) return null;
+    return AuthUser.fromJson(jsonDecode(userjson));
   }
 }

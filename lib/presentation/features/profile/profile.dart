@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce/authbloc/sharedprefsutil.dart';
+import 'package:flutter_ecommerce/models/authUser.dart';
 import 'package:flutter_ecommerce/models/user_moel.dart';
+import 'package:flutter_ecommerce/presentation/features/profile/bloc/profile_bloc.dart';
 
 Future<User?> getUserData() async {
   final user = await SharedPrefsUtils.getUser();
@@ -15,50 +18,55 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  Future<User?>? _user;
+  final ProfileBloc profileBloc = ProfileBloc();
   @override
   void initState() {
+    profileBloc.add(OnProfileLoadEvent());
     super.initState();
-    _user = getUserData();
+  }
+
+  void dispose() {
+    profileBloc.close();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Hello'),
-      ),
-      body: FutureBuilder(
-          future: _user,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              final user = snapshot.data!;
-              return Column(
-                children: [
-                  Text(user.email),
-                  CircleAvatar(
-                    radius: 50,
-                    child: Image.network(
-                      user.image,
-                      height: 100,
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  ElevatedButton(
-                      onPressed: () {
-                        SharedPrefsUtils.removeUser();
-                      },
-                      child: Text('logout')),
-                  Text(user.email)
-                ],
+    return BlocProvider(
+      create: (context) => profileBloc,
+      child: BlocListener<ProfileBloc, ProfileState>(
+        listener: (context, state) {
+          if (state is ProfileError) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(state.message)));
+          }
+        },
+        child: BlocBuilder<ProfileBloc, ProfileState>(
+          builder: (context, state) {
+            if (state is ProfileInitial || state is ProfileLoading) {
+              return const Center(
+                child: CircularProgressIndicator(),
               );
-            } else if (snapshot.hasError) {
+            } else if (state is ProfileLoaded) {
+              return _buildProfile(context, state.authUser);
+            } else if (state is ProfileError) {
               return Center(
-                child: Text('Error'),
+                child: Text(state.message),
               );
+            } else {
+              return Container();
             }
-            return Text('Error');
-          }),
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _buildProfile(BuildContext context, AuthUser model) {
+    return Container(
+      height: 500,
+      width: MediaQuery.of(context).size.width,
+      child: Text(model.firstName!),
     );
   }
 }

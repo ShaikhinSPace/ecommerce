@@ -21,16 +21,26 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: AppCOlors.primary,
-      leading: leading,
-      title: Image.asset(
+      leading: Image.asset(
         width: MediaQuery.of(context).size.width,
-        'assets/banner.png',
-        height: 50 + 10 + 10 + 10,
+        'assets/trybanner.png',
+        height: 50 + 10 + 10 + 10 + 10,
       ),
+      title: _buildSearchBar(),
       toolbarHeight: 100,
     );
   }
 
+  Widget _buildSearchBar() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SearchBar(
+        backgroundColor: MaterialStatePropertyAll(AppCOlors.secondary),
+        leading: Icon(Icons.search),
+      ),
+    );
+  }
+
   @override
-  Size get preferredSize => const Size.fromHeight(100);
+  Size get preferredSize => const Size.fromHeight(60 + 10 + 10);
 }

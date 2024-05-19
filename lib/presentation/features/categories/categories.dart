@@ -87,13 +87,19 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             context.go(Approutes.productCategory);
           },
           child: Card(
-            color: Colors.white,
+            elevation: 5,
+            shadowColor: AppCOlors.CardBorder,
+            color: AppCOlors.cardColor,
             child: Padding(
               padding: EdgeInsets.all(16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(categorylist[index].toString().toUpperCase()),
+                  Text(
+                    categorylist[index].toString().toUpperCase(),
+                    style: TextStyle(
+                        color: AppCOlors.primary, fontWeight: FontWeight.bold),
+                  ),
                 ],
               ),
             ),

@@ -7,6 +7,7 @@ import 'package:flutter_ecommerce/constants/approuter.dart';
 import 'package:flutter_ecommerce/constants/custoomcard.dart';
 // import 'package:flutter_ecommerce/constants/math.dart'; // Corrected import
 import 'package:flutter_ecommerce/constants/maths.dart';
+import 'package:flutter_ecommerce/models/authUser.dart';
 import 'package:flutter_ecommerce/presentation/features/home/bloc/home_bloc.dart';
 // import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +17,11 @@ import 'package:go_router/go_router.dart';
 class AppCOlors {
   static const Color primary = Color(0xff004aad);
   static const Color secondary = Color(0xffE7F1FF);
+  static const Color cardColor = Color(0xffFFFFFF);
+  static const Color CardBorder = Color(0xff8AA4D8);
+  static const Color PrimaryText = Color(0xff004AAD);
+  static const Color SecondaryText = Color(0xffF333333);
+  static const Color accent = Color(0xff00A4CC);
 
   static const Color darkPrimary = Color(0xff32643);
   static const Color darkSecondary = Color(0xff606470);
@@ -33,9 +39,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    SharedPrefsUtils.saveCart();
-
     homeBloc.add(LoadProductsEvent());
+    SharedPrefsUtils.saveCart();
+    SharedPrefsUtils.setAuthUser();
+
     super.initState();
   }
 

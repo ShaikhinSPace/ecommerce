@@ -22,12 +22,12 @@ import 'package:go_router/go_router.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPrefsUtils.init();
-  // // await SharedPrefsUtils.getUser();
-  // ApiProvider apiProvider = ApiProvider();
-  // final products = await apiProvider.fetchProducts();
-  // SharedPrefsUtils.saveProducts(products);
-  // final categories = await apiProvider.fetchCategories();
-  // SharedPrefsUtils.saveCategories(categories);
+  // await SharedPrefsUtils.getUser();
+  ApiProvider apiProvider = ApiProvider();
+  final products = await apiProvider.fetchProducts();
+  SharedPrefsUtils.saveProducts(products);
+  final categories = await apiProvider.fetchCategories();
+  SharedPrefsUtils.saveCategories(categories);
   // final cart = await apiProvider.fetchCart();
   // print("data::::::${cart.carts![0].product![0].brand}");
   // SharedPrefsUtils.saveCart(cart);
