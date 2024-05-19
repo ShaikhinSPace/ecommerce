@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/foundation.dart';
@@ -72,6 +74,29 @@ class ApiProvider {
       return AuthUser.fromJson(response.data);
     } catch (e) {
       rethrow;
+    }
+  }
+
+  Future<Cart?> addToCart(int userID, int id, int quantity) async {
+    try {
+      Response response = await _dio.post('/carts/add',
+          data: {
+            "userID": userID,
+            "products": [
+              {"id": id, "quantity": quantity}
+            ]
+          },
+          options: Options(
+            headers: {"Content-Type": "application/json"},
+          ));
+      if (response.statusCode == 200) {
+        return Cart.fromJson(response.data);
+      } else {
+        print('fail');
+      }
+    } catch (e) {
+      print(e);
+      return null;
     }
   }
 }

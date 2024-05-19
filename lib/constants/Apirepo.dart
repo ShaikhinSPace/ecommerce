@@ -26,6 +26,10 @@ class ApiRepo {
   Future<AuthUser> fetchAuthUser() {
     return _provider.fetchUser();
   }
+
+  Future<Cart?> addToCart(int userid, int id, int quantity) {
+    return _provider.addToCart(userid, id, quantity);
+  }
 }
 
 class NetworkError extends Error {}

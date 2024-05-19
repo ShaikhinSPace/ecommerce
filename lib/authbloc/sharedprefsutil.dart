@@ -116,9 +116,9 @@ class SharedPrefsUtils {
     await _preferences.setString('auth_user', jsonEncode(abc));
   }
 
-  static Future<AuthUser?> getAuthUser() async {
+  Future<AuthUser> getAuthUser() async {
     String? userjson = _preferences.getString('auth_user');
-    if (userjson == null) return null;
+    if (userjson == null) return AuthUser();
     return AuthUser.fromJson(jsonDecode(userjson));
   }
 }

@@ -14,10 +14,13 @@ class onCartLoadEvent extends CartEvent {
 }
 
 class onAddToCart extends CartEvent {
-  onAddToCart();
+  final int userID;
+  final int id;
+  final int quantity;
+  onAddToCart(this.userID, this.id, this.quantity);
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [id, quantity, userID];
 }
 
 class onRemoveFromCart extends CartEvent {
