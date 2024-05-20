@@ -13,24 +13,24 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  final CartBloc cartBloc = CartBloc();
+  // final CartBloc cartBloc = CartBloc();
 
-  @override
-  void initState() {
-    cartBloc.add(onCartLoadEvent());
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   cartBloc.add(onCartLoadEvent());
+  //   super.initState();
+  // }
 
-  @override
-  void dispose() {
-    cartBloc.close();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   cartBloc.close();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => cartBloc,
+      create: (context) => CartBloc(),
       child: BlocListener<CartBloc, CartState>(
         listener: (context, state) {
           if (state is CartFailed) {
@@ -39,6 +39,7 @@ class _CartScreenState extends State<CartScreen> {
           }
         },
         child: BlocBuilder<CartBloc, CartState>(
+          bloc: BlocProvider.of<CartBloc>(context),
           builder: (context, state) {
             if (state is CartInitial || state is CartLoading) {
               return const Center(

@@ -16,6 +16,10 @@ class SharedPrefsUtils {
     _preferences = await SharedPreferences.getInstance();
   }
 
+  static Future<void> removeCarts() async {
+    await _preferences.remove('cart');
+  }
+
   static Future<User> saveUser(User user) async {
     _preferences.setInt('userId', user.id);
     _preferences.setString('username', user.username);
@@ -98,10 +102,10 @@ class SharedPrefsUtils {
     return [];
   }
 
-  static Future<void> saveCart() async {
-    Future<Cart> cartFuture = ApiProvider().fetchCart();
-    Cart cart = await cartFuture;
-    await _preferences.setString('cart', jsonEncode(cart));
+  static Future<void> saveCart(Cart? cart) async {
+    // Future<Cart> cartFuture = ApiProvider().fetchCart();
+    // Cart cart = await cartFuture;
+    await _preferences.setString('cart', jsonEncode(cart!.copyWith()));
   }
 
   static Future<Cart?> getCart() async {

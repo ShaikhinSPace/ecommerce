@@ -1,20 +1,16 @@
-import 'package:dio/io.dart';
 import 'package:flutter/material.dart';
+// import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce/authbloc/sharedprefsutil.dart';
-import 'package:flutter_ecommerce/constants/apiservice.dart';
-import 'package:flutter_ecommerce/constants/approuter.dart';
 // import 'package:flutter_ecommerce/constants/custom_card.dart'; // Corrected import
 import 'package:flutter_ecommerce/constants/custoomcard.dart';
 // import 'package:flutter_ecommerce/constants/math.dart'; // Corrected import
 import 'package:flutter_ecommerce/constants/maths.dart';
 import 'package:flutter_ecommerce/models/authUser.dart';
+import 'package:flutter_ecommerce/models/products_model.dart';
 import 'package:flutter_ecommerce/models/user_moel.dart';
 import 'package:flutter_ecommerce/presentation/cart/bloc/cart_bloc.dart';
 import 'package:flutter_ecommerce/presentation/features/home/bloc/home_bloc.dart';
-// import 'package:bloc/bloc.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_ecommerce/models/products_model.dart';
-import 'package:go_router/go_router.dart';
 
 class AppCOlors {
   static const Color primary = Color(0xff004aad);
@@ -42,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     homeBloc.add(LoadProductsEvent());
-    SharedPrefsUtils.saveCart();
+    // SharedPrefsUtils.saveCart();
     SharedPrefsUtils.setAuthUser();
 
     super.initState();
@@ -129,12 +125,10 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisCount: 2, childAspectRatio: 0.75),
         itemCount: model!.products!.length,
         itemBuilder: (context, index) {
-          Future<void> getDataaddBloc() async {
-            final AuthUser user = await SharedPrefsUtils().getAuthUser();
-            final int userId = user.id!;
-            BlocProvider.of<CartBloc>(context)
-                .add(onAddToCart(userId, model.products![index].id!, 1));
-          }
+//           Future<void> getDataaddBloc() async {
+//             final AuthUser user = await SharedPrefsUtils().getAuthUser();
+//             final int userId = user.id!;
+// CartBloc.of(context).add(onAddToCart(userID, id, quantity))          }
 
           final String title = model.products![index].title ?? '';
           final int price = model.products![index].price ?? 0;
@@ -145,7 +139,12 @@ class _HomeScreenState extends State<HomeScreen> {
               calculatePrice(discountpercent, price).toString();
           final String image = model.products![index].thumbnail ?? '';
           return CustomCard(
-            onpressed: () => getDataaddBloc(),
+            onpressed: () async {
+              final User? authUser = await SharedPrefsUtils.getUser();
+              final int userID = authUser!.id;
+              BlocProvider.of<CartBloc>(context)
+                  .add(onAddToCart(userID, model.products![index].id!, 1));
+            },
             name: title,
             discountPercent: discountpercent,
             discountedprice: discountedprice,

@@ -5,8 +5,19 @@ class ErrorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Error'),
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
+        title: Text('errpr'),
+      ),
+      body: Center(
+        child: Text('Error'),
+      ),
     );
   }
 }

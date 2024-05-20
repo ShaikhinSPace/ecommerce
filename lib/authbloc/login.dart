@@ -52,7 +52,7 @@ class LoginForm extends StatelessWidget {
         children: <Widget>[
           Image.asset('assets/banner.png'),
           Card(
-            color: Colors.white,
+            color: AppCOlors.cardColor,
             elevation: 5,
             shadowColor: AppCOlors.secondary,
             child: Padding(
@@ -67,8 +67,10 @@ class LoginForm extends StatelessWidget {
                   TextField(
                     focusNode: node2,
                     controller: _passwordController,
-                    decoration: InputDecoration(labelText: 'Password'),
-                    obscureText: true,
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                    ),
+                    obscureText: false,
                   ),
                   SizedBox(height: 20),
                   ElevatedButton(

@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/foundation.dart';
 import 'package:flutter_ecommerce/authbloc/sharedprefsutil.dart';
+import 'package:flutter_ecommerce/constants/Apirepo.dart';
 import 'package:flutter_ecommerce/models/authUser.dart';
 import 'package:flutter_ecommerce/models/cart_model.dart';
 import 'package:flutter_ecommerce/models/products_model.dart';
@@ -90,6 +91,25 @@ class ApiProvider {
             headers: {"Content-Type": "application/json"},
           ));
       if (response.statusCode == 200) {
+        Cart newCart = Cart.fromJson(response.data);
+        Cart? existingCart = await ApiRepo().fetchCart();
+        if (existingCart != null) {
+          bool productExists = false;
+          for (CartProduct product in existingCart.carts!.first.products!) {
+            if (product.id == id) {
+              productExists = true;
+              product =
+                  product.copyWith(quantity: product.quantity! + quantity);
+              break;
+            }
+          }
+          if (!productExists) {
+            existingCart.carts!.first.products!
+                .add(CartProduct(id: id, quantity: quantity));
+          }
+          newCart = existingCart.copyWith(carts: existingCart.carts);
+        }
+        await SharedPrefsUtils.saveCart(newCart);
         return Cart.fromJson(response.data);
       } else {
         print('fail');

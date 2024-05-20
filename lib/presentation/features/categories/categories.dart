@@ -1,7 +1,13 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce/authbloc/sharedprefsutil.dart';
+import 'package:flutter_ecommerce/constants/Apirepo.dart';
+import 'package:flutter_ecommerce/constants/apiservice.dart';
 import 'package:flutter_ecommerce/constants/approuter.dart';
+import 'package:flutter_ecommerce/models/cart_model.dart';
 import 'package:flutter_ecommerce/models/user_moel.dart';
 import 'package:flutter_ecommerce/presentation/features/categories/bloc/categories_bloc.dart';
 import 'package:flutter_ecommerce/presentation/features/home/bloc/home_bloc.dart';
@@ -21,6 +27,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   @override
   void initState() {
     categoriesBloc.add(LoadCategoriesEvent());
+
     super.initState();
   }
 

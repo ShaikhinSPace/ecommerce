@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce/authbloc/sharedprefsutil.dart';
 import 'package:flutter_ecommerce/models/authUser.dart';
 import 'package:flutter_ecommerce/models/user_moel.dart';
+import 'package:flutter_ecommerce/presentation/features/home/home.dart';
 import 'package:flutter_ecommerce/presentation/features/profile/bloc/profile_bloc.dart';
 
 Future<User?> getUserData() async {
@@ -63,10 +64,107 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _buildProfile(BuildContext context, AuthUser model) {
-    return Container(
-      height: 500,
-      width: MediaQuery.of(context).size.width,
-      child: Text(model.firstName!),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Card(
+        elevation: 5,
+        shadowColor: AppCOlors.CardBorder,
+        color: AppCOlors.cardColor,
+        // height: 500,
+        // width: MediaQuery.of(context).size.width,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              CircleAvatar(
+                backgroundColor: AppCOlors.primary,
+                radius: 50,
+                child: ClipOval(child: Image.network(model.image ?? '')),
+              ),
+              Card(
+                child: Column(
+                  children: [
+                    Text(
+                      'Personal Details',
+                      style: TextStyle(
+                          color: AppCOlors.PrimaryText,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0 * 2),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Name',
+                                style: TextStyle(color: AppCOlors.PrimaryText),
+                              ),
+                              Text(
+                                "${model.firstName}" +
+                                    ' ' +
+                                    "${model.maidenName}" +
+                                    ' ' +
+                                    "${model.lastName}",
+                                style:
+                                    TextStyle(color: AppCOlors.SecondaryText),
+                              )
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Email',
+                                style: TextStyle(color: AppCOlors.PrimaryText),
+                              ),
+                              Text(
+                                "${model.email}",
+                                style:
+                                    TextStyle(color: AppCOlors.SecondaryText),
+                              )
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Username',
+                                style: TextStyle(color: AppCOlors.PrimaryText),
+                              ),
+                              Text(
+                                "${model.username}",
+                                style:
+                                    TextStyle(color: AppCOlors.SecondaryText),
+                              )
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Username',
+                                style: TextStyle(color: AppCOlors.PrimaryText),
+                              ),
+                              Text(
+                                "${model.age}",
+                                style:
+                                    TextStyle(color: AppCOlors.SecondaryText),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
