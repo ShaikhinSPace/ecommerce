@@ -155,6 +155,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               )
                             ],
                           ),
+                          //  Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   children: [
+                          //     Text(
+                          //       'Username',
+                          //       style: TextStyle(color: AppCOlors.PrimaryText),
+                          //     ),
+                          //     Text(
+                          //       "${model.}",
+                          //       style:
+                          //           TextStyle(color: AppCOlors.SecondaryText),
+                          //     )
+                          //   ],
+                          // ),
                         ],
                       ),
                     )

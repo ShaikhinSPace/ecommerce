@@ -9,7 +9,7 @@ import 'package:flutter_ecommerce/constants/maths.dart';
 import 'package:flutter_ecommerce/models/authUser.dart';
 import 'package:flutter_ecommerce/models/products_model.dart';
 import 'package:flutter_ecommerce/models/user_moel.dart';
-import 'package:flutter_ecommerce/presentation/cart/bloc/cart_bloc.dart';
+import 'package:flutter_ecommerce/presentation/features/cart/bloc/cart_bloc.dart';
 import 'package:flutter_ecommerce/presentation/features/home/bloc/home_bloc.dart';
 
 class AppCOlors {

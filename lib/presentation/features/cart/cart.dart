@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce/models/cart_model.dart';
-import 'package:flutter_ecommerce/presentation/cart/bloc/cart_bloc.dart';
+import 'package:flutter_ecommerce/presentation/features/cart/bloc/cart_bloc.dart';
 import 'package:flutter_ecommerce/presentation/features/home/home.dart';
 
 class CartScreen extends StatefulWidget {

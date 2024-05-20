@@ -5,8 +5,8 @@ import 'package:flutter_ecommerce/authbloc/sharedprefsutil.dart';
 import 'package:flutter_ecommerce/constants/apiservice.dart';
 import 'package:flutter_ecommerce/mainscreen.dart';
 import 'package:flutter_ecommerce/models/cart_model.dart';
-import 'package:flutter_ecommerce/presentation/cart/bloc/cart_bloc.dart';
-import 'package:flutter_ecommerce/presentation/cart/cart.dart';
+import 'package:flutter_ecommerce/presentation/features/cart/bloc/cart_bloc.dart';
+import 'package:flutter_ecommerce/presentation/features/cart/cart.dart';
 
 import 'package:flutter_ecommerce/presentation/features/categories/bloc/categories_bloc.dart';
 import 'package:flutter_ecommerce/presentation/features/home/bloc/home_bloc.dart';

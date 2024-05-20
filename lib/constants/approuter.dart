@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce/authbloc/login.dart';
 import 'package:flutter_ecommerce/authbloc/sharedprefsutil.dart';
 import 'package:flutter_ecommerce/constants/productpage.dart';
-import 'package:flutter_ecommerce/presentation/cart/cart.dart';
+import 'package:flutter_ecommerce/presentation/features/cart/cart.dart';
 import 'package:flutter_ecommerce/presentation/features/ProductCategories/productCategory.dart';
 import 'package:flutter_ecommerce/presentation/features/categories/categories.dart';
 import 'package:flutter_ecommerce/presentation/features/error/error.dart';
