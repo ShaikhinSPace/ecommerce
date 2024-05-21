@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/constants/Apirepo.dart';
 import 'package:flutter_ecommerce/constants/apiservice.dart';
+import 'package:flutter_ecommerce/constants/maths.dart';
 import 'package:flutter_ecommerce/models/authUser.dart';
 import 'package:flutter_ecommerce/models/cart_model.dart';
 import 'package:flutter_ecommerce/models/extension.dart';
@@ -102,16 +104,26 @@ class SharedPrefsUtils {
     return [];
   }
 
-  static Future<void> saveCart(Cart? cart) async {
-    // Future<Cart> cartFuture = ApiProvider().fetchCart();
-    // Cart cart = await cartFuture;
-    await _preferences.setString('cart', jsonEncode(cart!.copyWith()));
+  static Future<void> saveCart() async {
+    Cart cart = await ApiProvider().fetchCart();
+    await _preferences.setString('cart', jsonEncode(cart));
   }
 
   static Future<Cart?> getCart() async {
     final cartJson = _preferences.getString('cart');
     if (cartJson == null) return null;
     return Cart.fromJson(jsonDecode(cartJson));
+  }
+
+  static Future<void> saveNewCart() async {
+    Cart cart = await ApiRepo().addToCart(1, 3, 3);
+    await _preferences.setString('new_cart', jsonEncode(cart));
+  }
+
+  static Future<Cart?> getNewCart() async {
+    final cartjson = _preferences.getString('new_cart');
+    if (cartjson == null) return getCart();
+    return Cart.fromJson(jsonDecode(cartjson));
   }
 
   static Future<void> setAuthUser() async {

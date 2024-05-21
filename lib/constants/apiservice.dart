@@ -1,10 +1,6 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 // import 'package:flutter/foundation.dart';
 import 'package:flutter_ecommerce/authbloc/sharedprefsutil.dart';
-import 'package:flutter_ecommerce/constants/Apirepo.dart';
 import 'package:flutter_ecommerce/models/authUser.dart';
 import 'package:flutter_ecommerce/models/cart_model.dart';
 import 'package:flutter_ecommerce/models/products_model.dart';
@@ -78,45 +74,20 @@ class ApiProvider {
     }
   }
 
-  Future<Cart?> addToCart(int userID, int id, int quantity) async {
+  Future<Cart> AddToCart(int cartid, int productid, int quantity) async {
     try {
-      Response response = await _dio.post('/carts/add',
+      final Response response = await _dio.put('/carts/$cartid',
           data: {
-            "userID": userID,
-            "products": [
-              {"id": id, "quantity": quantity}
+            'merge': true,
+            'products': [
+              {"id": productid, "quantity": quantity}
             ]
           },
-          options: Options(
-            headers: {"Content-Type": "application/json"},
-          ));
-      if (response.statusCode == 200) {
-        Cart newCart = Cart.fromJson(response.data);
-        Cart? existingCart = await ApiRepo().fetchCart();
-        if (existingCart != null) {
-          bool productExists = false;
-          for (CartProduct product in existingCart.carts!.first.products!) {
-            if (product.id == id) {
-              productExists = true;
-              product =
-                  product.copyWith(quantity: product.quantity! + quantity);
-              break;
-            }
-          }
-          if (!productExists) {
-            existingCart.carts!.first.products!
-                .add(CartProduct(id: id, quantity: quantity));
-          }
-          newCart = existingCart.copyWith(carts: existingCart.carts);
-        }
-        await SharedPrefsUtils.saveCart(newCart);
-        return Cart.fromJson(response.data);
-      } else {
-        print('fail');
-      }
+          options: Options(headers: {'Content-Type': 'application/json'}));
+      print('cartdata::::${response.data}');
+      return Cart.fromJson(response.data);
     } catch (e) {
-      print(e);
-      return null;
+      rethrow;
     }
   }
 }

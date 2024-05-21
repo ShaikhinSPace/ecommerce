@@ -6,10 +6,7 @@ import 'package:flutter_ecommerce/authbloc/sharedprefsutil.dart';
 import 'package:flutter_ecommerce/constants/custoomcard.dart';
 // import 'package:flutter_ecommerce/constants/math.dart'; // Corrected import
 import 'package:flutter_ecommerce/constants/maths.dart';
-import 'package:flutter_ecommerce/models/authUser.dart';
 import 'package:flutter_ecommerce/models/products_model.dart';
-import 'package:flutter_ecommerce/models/user_moel.dart';
-import 'package:flutter_ecommerce/presentation/features/cart/bloc/cart_bloc.dart';
 import 'package:flutter_ecommerce/presentation/features/home/bloc/home_bloc.dart';
 
 class AppCOlors {
@@ -38,8 +35,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     homeBloc.add(LoadProductsEvent());
-    // SharedPrefsUtils.saveCart();
+    SharedPrefsUtils.saveCart();
     SharedPrefsUtils.setAuthUser();
+    SharedPrefsUtils.saveNewCart();
+    // final abc = SharedPrefsUtils.getNewCart();
+    // print(abc);
 
     super.initState();
   }
@@ -140,10 +140,10 @@ class _HomeScreenState extends State<HomeScreen> {
           final String image = model.products![index].thumbnail ?? '';
           return CustomCard(
             onpressed: () async {
-              final User? authUser = await SharedPrefsUtils.getUser();
-              final int userID = authUser!.id;
-              BlocProvider.of<CartBloc>(context)
-                  .add(onAddToCart(userID, model.products![index].id!, 1));
+              // final User? authUser = await SharedPrefsUtils.getUser();
+              // final int userID = authUser!.id;
+              // BlocProvider.of<CartBloc>(context)
+              //     .add(onAddToCart(userID, model.products![index].id!, 1));
             },
             name: title,
             discountPercent: discountpercent,

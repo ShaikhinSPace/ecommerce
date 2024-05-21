@@ -10,6 +10,8 @@ import 'package:flutter_ecommerce/presentation/features/cart/cart.dart';
 
 import 'package:flutter_ecommerce/presentation/features/categories/bloc/categories_bloc.dart';
 import 'package:flutter_ecommerce/presentation/features/home/bloc/home_bloc.dart';
+import 'package:flutter_ecommerce/presentation/features/profile/bloc/profile_bloc.dart';
+import 'package:flutter_ecommerce/presentation/features/profile/profile.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_ecommerce/authbloc/authprovider.dart';
 import 'package:flutter_ecommerce/constants/approuter.dart';
@@ -46,6 +48,10 @@ void main() async {
       BlocProvider(
         create: (context) => CartBloc(),
         child: CartScreen(),
+      ),
+      BlocProvider(
+        create: (context) => ProfileBloc(),
+        child: ProfileScreen(),
       )
     ],
     child: MyApp(),

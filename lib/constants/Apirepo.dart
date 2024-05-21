@@ -1,4 +1,3 @@
-import 'package:flutter/rendering.dart';
 import 'package:flutter_ecommerce/constants/apiservice.dart';
 import 'package:flutter_ecommerce/models/authUser.dart';
 import 'package:flutter_ecommerce/models/cart_model.dart';
@@ -27,8 +26,8 @@ class ApiRepo {
     return _provider.fetchUser();
   }
 
-  Future<Cart?> addToCart(int userid, int id, int quantity) {
-    return _provider.addToCart(userid, id, quantity);
+  Future<Cart> addToCart(int cartid, int productId, int quantity) {
+    return _provider.AddToCart(cartid, productId, quantity);
   }
 }
 
