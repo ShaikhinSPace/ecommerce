@@ -1,31 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_ecommerce/authbloc/login.dart';
 import 'package:flutter_ecommerce/authbloc/sharedprefsutil.dart';
 import 'package:flutter_ecommerce/constants/apiservice.dart';
-import 'package:flutter_ecommerce/mainscreen.dart';
-import 'package:flutter_ecommerce/models/cart_model.dart';
+import 'package:flutter_ecommerce/constants/approuter.dart';
 import 'package:flutter_ecommerce/presentation/features/cart/bloc/cart_bloc.dart';
 import 'package:flutter_ecommerce/presentation/features/cart/cart.dart';
-
 import 'package:flutter_ecommerce/presentation/features/categories/bloc/categories_bloc.dart';
 import 'package:flutter_ecommerce/presentation/features/home/bloc/home_bloc.dart';
 import 'package:flutter_ecommerce/presentation/features/profile/bloc/profile_bloc.dart';
 import 'package:flutter_ecommerce/presentation/features/profile/profile.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_ecommerce/authbloc/authprovider.dart';
-import 'package:flutter_ecommerce/constants/approuter.dart';
-import 'package:flutter_ecommerce/models/user_moel.dart';
-import 'package:flutter_ecommerce/presentation/features/navigation/bloc/navigation_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:flutter_ecommerce/features/home/home.dart';
 // import 'package:flutter_ecommerce/models/products_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPrefsUtils.init();
-  await SharedPrefsUtils.removeUser();
   // await SharedPrefsUtils.getUser();
   ApiProvider apiProvider = ApiProvider();
   final products = await apiProvider.fetchProducts();

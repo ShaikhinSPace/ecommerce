@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce/authbloc/sharedprefsutil.dart';
+import 'package:flutter_ecommerce/constants/approuter.dart';
 import 'package:flutter_ecommerce/models/authUser.dart';
 import 'package:flutter_ecommerce/models/user_moel.dart';
 import 'package:flutter_ecommerce/presentation/features/home/home.dart';
 import 'package:flutter_ecommerce/presentation/features/profile/bloc/profile_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 Future<User?> getUserData() async {
   final user = await SharedPrefsUtils.getUser();
@@ -155,6 +157,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               )
                             ],
                           ),
+                          ElevatedButton(
+                              style: ButtonStyle(
+                                  foregroundColor: MaterialStatePropertyAll(
+                                      AppCOlors.secondary),
+                                  backgroundColor: MaterialStatePropertyAll(
+                                      AppCOlors.primary)),
+                              onPressed: () {
+                                SharedPrefsUtils.removeUser();
+                                context.go(Approutes.loginRoute);
+                              },
+                              child: Text('Logout'))
                           //  Row(
                           //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           //   children: [

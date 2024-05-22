@@ -1,19 +1,16 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce/authbloc/login.dart';
 import 'package:flutter_ecommerce/authbloc/sharedprefsutil.dart';
-import 'package:flutter_ecommerce/constants/productpage.dart';
-import 'package:flutter_ecommerce/presentation/features/cart/cart.dart';
+import 'package:flutter_ecommerce/mainscreen.dart';
 import 'package:flutter_ecommerce/presentation/features/ProductCategories/productCategory.dart';
+import 'package:flutter_ecommerce/presentation/features/cart/cart.dart';
 import 'package:flutter_ecommerce/presentation/features/categories/categories.dart';
 import 'package:flutter_ecommerce/presentation/features/error/error.dart';
 import 'package:flutter_ecommerce/presentation/features/home/home.dart';
 import 'package:flutter_ecommerce/presentation/features/navigation/bloc/navigation_bloc.dart';
 // import 'package:flutter_ecommerce/features/product/product.dart';
 import 'package:flutter_ecommerce/presentation/features/profile/profile.dart';
-import 'package:flutter_ecommerce/mainscreen.dart';
 import 'package:go_router/go_router.dart';
 
 abstract class Approutes {
@@ -26,13 +23,16 @@ abstract class Approutes {
   static const loginRoute = '/login';
 }
 
-class AppRouter {
+abstract class AppRouter {
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();
   static final _shellNavigatorKey = GlobalKey<NavigatorState>();
+  static final bool sharedPrefsUtils = SharedPrefsUtils().isLoggedIn();
   // static final Future<bool> isLogin = SharedPrefsUtils.isLoggedIn();
 
   static final GoRouter _router = GoRouter(
-    initialLocation: Approutes.loginRoute, // Set initial location to loginRoute
+    initialLocation: sharedPrefsUtils
+        ? Approutes.homeRoute
+        : Approutes.loginRoute, // Set initial location to loginRoute
     navigatorKey: _rootNavigatorKey,
     routes: <RouteBase>[
       GoRoute(

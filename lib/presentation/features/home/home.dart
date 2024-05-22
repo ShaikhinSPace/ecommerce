@@ -38,8 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
     SharedPrefsUtils.saveCart();
     SharedPrefsUtils.setAuthUser();
     SharedPrefsUtils.saveNewCart();
-    // final abc = SharedPrefsUtils.getNewCart();
-    // print(abc);
+    final abc = SharedPrefsUtils().isLoggedIn();
+    print("isloggedin:::$abc");
 
     super.initState();
   }

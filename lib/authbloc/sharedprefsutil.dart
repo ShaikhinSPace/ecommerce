@@ -1,12 +1,9 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/constants/Apirepo.dart';
 import 'package:flutter_ecommerce/constants/apiservice.dart';
-import 'package:flutter_ecommerce/constants/maths.dart';
 import 'package:flutter_ecommerce/models/authUser.dart';
 import 'package:flutter_ecommerce/models/cart_model.dart';
-import 'package:flutter_ecommerce/models/extension.dart';
 import 'package:flutter_ecommerce/models/products_model.dart';
 import 'package:flutter_ecommerce/models/user_moel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -67,7 +64,7 @@ class SharedPrefsUtils {
     }
   }
 
-  Future<bool> isLoggedIn() async {
+  bool isLoggedIn() {
     try {
       final token = _preferences.getString('token');
       return token?.isNotEmpty ?? false;
@@ -117,13 +114,7 @@ class SharedPrefsUtils {
 
   static Future<void> saveNewCart() async {
     Cart cart = await ApiRepo().addToCart(1, 3, 3);
-    await _preferences.setString('new_cart', jsonEncode(cart));
-  }
-
-  static Future<Cart?> getNewCart() async {
-    final cartjson = _preferences.getString('new_cart');
-    if (cartjson == null) return getCart();
-    return Cart.fromJson(jsonDecode(cartjson));
+    await _preferences.setString('cart', jsonEncode(cart));
   }
 
   static Future<void> setAuthUser() async {

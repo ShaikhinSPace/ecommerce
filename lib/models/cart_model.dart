@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class Cart {
   final List<CartElement>? carts;
   final int? total;

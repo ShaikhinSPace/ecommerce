@@ -84,7 +84,7 @@ class ApiProvider {
             ]
           },
           options: Options(headers: {'Content-Type': 'application/json'}));
-      print('cartdata::::${response.data}');
+      // print('cartdata::::${response.data}');
       return Cart.fromJson(response.data);
     } catch (e) {
       rethrow;

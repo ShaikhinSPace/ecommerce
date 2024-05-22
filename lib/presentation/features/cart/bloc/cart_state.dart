@@ -7,19 +7,16 @@ sealed class CartState extends Equatable {
   List<Object> get props => [];
 }
 
-final class CartLoading extends CartState {}
+final class CartInitial extends CartState {}
 
-class CartLoaded extends CartState {
+final class CartLoaded extends CartState {
   final Cart cart;
   CartLoaded(this.cart);
-
-  @override
-  List<Object> get props => [cart];
 }
 
-class CartError extends CartState {
+final class CartFail extends CartState {
   final String message;
-  CartError(this.message);
+  CartFail(this.message);
 
   @override
   List<Object> get props => [message];
