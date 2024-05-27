@@ -1,8 +1,8 @@
 class Cart {
-  final List<CartElement>? carts;
-  final int? total;
-  final int? skip;
-  final int? limit;
+  List<Carts>? carts;
+  int? total;
+  int? skip;
+  int? limit;
 
   Cart({
     this.carts,
@@ -11,49 +11,54 @@ class Cart {
     this.limit,
   });
 
-  Cart copyWith({
-    List<CartElement>? carts,
-    int? total,
-    int? skip,
-    int? limit,
-  }) =>
-      Cart(
-        carts: carts ?? this.carts,
-        total: total ?? this.total,
-        skip: skip ?? this.skip,
-        limit: limit ?? this.limit,
-      );
+  Map<String, dynamic> toJson() {
+    return {
+      'carts': carts,
+      'total': total,
+      'skip': skip,
+      'limit': limit,
+    };
+  }
 
-  factory Cart.fromJson(Map<String, dynamic> json) => Cart(
-        carts: json["carts"] == null
-            ? []
-            : List<CartElement>.from(
-                json["carts"]!.map((x) => CartElement.fromJson(x))),
-        total: json["total"],
-        skip: json["skip"],
-        limit: json["limit"],
-      );
+  factory Cart.fromJson(Map<String, dynamic> json) {
+    return Cart(
+      carts: (json['carts'] as List<dynamic>?)
+          ?.map((e) => Carts.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      total: json['total'] as int?,
+      skip: json['skip'] as int?,
+      limit: json['limit'] as int?,
+    );
+  }
 
-  Map<String, dynamic> toJson() => {
-        "carts": carts == null
-            ? []
-            : List<dynamic>.from(carts!.map((x) => x.toJson())),
-        "total": total,
-        "skip": skip,
-        "limit": limit,
-      };
+  @override
+  String toString() =>
+      "Cart(carts: $carts,total: $total,skip: $skip,limit: $limit)";
+
+  @override
+  int get hashCode => Object.hash(carts, total, skip, limit);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Cart &&
+          runtimeType == other.runtimeType &&
+          carts == other.carts &&
+          total == other.total &&
+          skip == other.skip &&
+          limit == other.limit;
 }
 
-class CartElement {
-  final int? id;
-  final List<CartProduct>? products;
-  final int? total;
-  final int? discountedTotal;
-  final int? userId;
-  final int? totalProducts;
-  final int? totalQuantity;
+class Carts {
+  int? id;
+  List<CartProduct>? products;
+  double? total;
+  double? discountedTotal;
+  int? userId;
+  int? totalProducts;
+  int? totalQuantity;
 
-  CartElement({
+  Carts({
     this.id,
     this.products,
     this.total,
@@ -63,60 +68,63 @@ class CartElement {
     this.totalQuantity,
   });
 
-  CartElement copyWith({
-    int? id,
-    List<CartProduct>? products,
-    int? total,
-    int? discountedTotal,
-    int? userId,
-    int? totalProducts,
-    int? totalQuantity,
-  }) =>
-      CartElement(
-        id: id ?? this.id,
-        products: products ?? this.products,
-        total: total ?? this.total,
-        discountedTotal: discountedTotal ?? this.discountedTotal,
-        userId: userId ?? this.userId,
-        totalProducts: totalProducts ?? this.totalProducts,
-        totalQuantity: totalQuantity ?? this.totalQuantity,
-      );
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'products': products,
+      'total': total,
+      'discountedTotal': discountedTotal,
+      'userId': userId,
+      'totalProducts': totalProducts,
+      'totalQuantity': totalQuantity,
+    };
+  }
 
-  factory CartElement.fromJson(Map<String, dynamic> json) => CartElement(
-        id: json["id"],
-        products: json["products"] == null
-            ? []
-            : List<CartProduct>.from(
-                json["products"]!.map((x) => CartProduct.fromJson(x))),
-        total: json["total"],
-        discountedTotal: json["discountedTotal"],
-        userId: json["userId"],
-        totalProducts: json["totalProducts"],
-        totalQuantity: json["totalQuantity"],
-      );
+  factory Carts.fromJson(Map<String, dynamic> json) {
+    return Carts(
+      id: json['id'] as int?,
+      products: (json['products'] as List<dynamic>?)
+          ?.map((e) => CartProduct.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      total: json['total'] as double?,
+      discountedTotal: json['discountedTotal'] as double?,
+      userId: json['userId'] as int?,
+      totalProducts: json['totalProducts'] as int?,
+      totalQuantity: json['totalQuantity'] as int?,
+    );
+  }
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "products": products == null
-            ? []
-            : List<dynamic>.from(products!.map((x) => x.toJson())),
-        "total": total,
-        "discountedTotal": discountedTotal,
-        "userId": userId,
-        "totalProducts": totalProducts,
-        "totalQuantity": totalQuantity,
-      };
+  @override
+  String toString() =>
+      "Carts(id: $id,products: $products,total: $total,discountedTotal: $discountedTotal,userId: $userId,totalProducts: $totalProducts,totalQuantity: $totalQuantity)";
+
+  @override
+  int get hashCode => Object.hash(id, products, total, discountedTotal, userId,
+      totalProducts, totalQuantity);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Carts &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          products == other.products &&
+          total == other.total &&
+          discountedTotal == other.discountedTotal &&
+          userId == other.userId &&
+          totalProducts == other.totalProducts &&
+          totalQuantity == other.totalQuantity;
 }
 
 class CartProduct {
-  final int? id;
-  final String? title;
-  final int? price;
-  final int? quantity;
-  final int? total;
-  final double? discountPercentage;
-  final int? discountedPrice;
-  final String? thumbnail;
+  int? id;
+  String? title;
+  double? price;
+  int? quantity;
+  double? total;
+  double? discountPercentage;
+  double? discountedTotal;
+  String? thumbnail;
 
   CartProduct({
     this.id,
@@ -125,50 +133,55 @@ class CartProduct {
     this.quantity,
     this.total,
     this.discountPercentage,
-    this.discountedPrice,
+    this.discountedTotal,
     this.thumbnail,
   });
 
-  CartProduct copyWith({
-    int? id,
-    String? title,
-    int? price,
-    int? quantity,
-    int? total,
-    double? discountPercentage,
-    int? discountedPrice,
-    String? thumbnail,
-  }) =>
-      CartProduct(
-        id: id ?? this.id,
-        title: title ?? this.title,
-        price: price ?? this.price,
-        quantity: quantity ?? this.quantity,
-        total: total ?? this.total,
-        discountPercentage: discountPercentage ?? this.discountPercentage,
-        discountedPrice: discountedPrice ?? this.discountedPrice,
-        thumbnail: thumbnail ?? this.thumbnail,
-      );
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'price': price,
+      'quantity': quantity,
+      'total': total,
+      'discountPercentage': discountPercentage,
+      'discountedTotal': discountedTotal,
+      'thumbnail': thumbnail,
+    };
+  }
 
-  factory CartProduct.fromJson(Map<String, dynamic> json) => CartProduct(
-        id: json["id"],
-        title: json["title"],
-        price: json["price"],
-        quantity: json["quantity"],
-        total: json["total"],
-        discountPercentage: json["discountPercentage"]?.toDouble(),
-        discountedPrice: json["discountedPrice"],
-        thumbnail: json["thumbnail"],
-      );
+  factory CartProduct.fromJson(Map<String, dynamic> json) {
+    return CartProduct(
+      id: json['id'] as int?,
+      title: json['title'] as String?,
+      price: json['price'] as double?,
+      quantity: json['quantity'] as int?,
+      total: json['total'] as double?,
+      discountPercentage: json['discountPercentage'] as double?,
+      discountedTotal: json['discountedTotal'] as double?,
+      thumbnail: json['thumbnail'] as String?,
+    );
+  }
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "title": title,
-        "price": price,
-        "quantity": quantity,
-        "total": total,
-        "discountPercentage": discountPercentage,
-        "discountedPrice": discountedPrice,
-        "thumbnail": thumbnail,
-      };
+  @override
+  String toString() =>
+      "CartProduct(id: $id,title: $title,price: $price,quantity: $quantity,total: $total,discountPercentage: $discountPercentage,discountedTotal: $discountedTotal,thumbnail: $thumbnail)";
+
+  @override
+  int get hashCode => Object.hash(id, title, price, quantity, total,
+      discountPercentage, discountedTotal, thumbnail);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CartProduct &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          title == other.title &&
+          price == other.price &&
+          quantity == other.quantity &&
+          total == other.total &&
+          discountPercentage == other.discountPercentage &&
+          discountedTotal == other.discountedTotal &&
+          thumbnail == other.thumbnail;
 }

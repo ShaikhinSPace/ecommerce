@@ -4,6 +4,7 @@ import 'package:flutter_ecommerce/constants/Apirepo.dart';
 import 'package:flutter_ecommerce/constants/apiservice.dart';
 import 'package:flutter_ecommerce/models/authUser.dart';
 import 'package:flutter_ecommerce/models/cart_model.dart';
+import 'package:flutter_ecommerce/models/category_model.dart';
 import 'package:flutter_ecommerce/models/products_model.dart';
 import 'package:flutter_ecommerce/models/user_moel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -74,7 +75,18 @@ class SharedPrefsUtils {
   }
 
   static Future<void> removeUser() async {
-    await _preferences.clear();
+    // await _preferences.remove('auth_user');
+    // await _preferences.remove('cart');
+    _preferences.remove('userId');
+    _preferences.remove('username');
+    _preferences.remove('email');
+    _preferences.remove('firstName');
+    _preferences.remove('lastName');
+    _preferences.remove('gender');
+    _preferences.remove('image');
+    _preferences.remove('token');
+    _preferences.remove('auth_user');
+    _preferences.remove('cart');
   }
 
   static Future<void> saveProducts(Products products) async {
@@ -89,16 +101,19 @@ class SharedPrefsUtils {
     return null;
   }
 
-  static Future<void> saveCategories(List<String> list) async {
-    await _preferences.setStringList('categories', list);
+  static Future<void> saveCategories() async {
+    final categories = await ApiProvider().fetchCategories();
+    List<String> categoryList = categories.map((e) => e.toRawJson()).toList();
+    await _preferences.setStringList('categories', categoryList);
   }
 
-  static Future<List<String>> getCategories() async {
-    List<String>? cats = await _preferences.getStringList('categories');
-    if (cats != null) {
-      return cats;
+  static Future<List<CategoryModel>> getCategoryList() async {
+    List<String>? categoryList = _preferences.getStringList('categories');
+    if (categoryList != null) {
+      return categoryList.map((e) => CategoryModel.fromRawJson(e)).toList();
+    } else {
+      return [];
     }
-    return [];
   }
 
   static Future<void> saveCart() async {
@@ -112,8 +127,10 @@ class SharedPrefsUtils {
     return Cart.fromJson(jsonDecode(cartJson));
   }
 
-  static Future<void> saveNewCart() async {
-    Cart cart = await ApiRepo().addToCart(1, 3, 3);
+  static Future<void> saveNewCart(
+      int cartid, int productid, int quantity) async {
+    Cart cart = await ApiRepo().addToCart(cartid, productid, quantity);
+    await _preferences.remove('cart');
     await _preferences.setString('cart', jsonEncode(cart));
   }
 

@@ -133,11 +133,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Username',
+                                'id',
                                 style: TextStyle(color: AppCOlors.PrimaryText),
                               ),
                               Text(
-                                "${model.username}",
+                                "${model.id}",
                                 style:
                                     TextStyle(color: AppCOlors.SecondaryText),
                               )
@@ -147,7 +147,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Username',
+                                'Age',
                                 style: TextStyle(color: AppCOlors.PrimaryText),
                               ),
                               Text(

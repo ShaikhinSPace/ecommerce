@@ -9,18 +9,22 @@ import 'package:flutter_ecommerce/presentation/features/categories/bloc/categori
 import 'package:flutter_ecommerce/presentation/features/home/bloc/home_bloc.dart';
 import 'package:flutter_ecommerce/presentation/features/profile/bloc/profile_bloc.dart';
 import 'package:flutter_ecommerce/presentation/features/profile/profile.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 // import 'package:flutter_ecommerce/features/home/home.dart';
 // import 'package:flutter_ecommerce/models/products_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // GoRouter router = await AppRouter.init();
   await SharedPrefsUtils.init();
   // await SharedPrefsUtils.getUser();
   ApiProvider apiProvider = ApiProvider();
   final products = await apiProvider.fetchProducts();
   SharedPrefsUtils.saveProducts(products);
-  final categories = await apiProvider.fetchCategories();
-  SharedPrefsUtils.saveCategories(categories);
+  SharedPrefsUtils.saveCategories();
+  // final categories = await apiProvider.fetchCategories();
+  // SharedPrefsUtils.saveCategories(categories);
   // final cart = await apiProvider.fetchCart();
   // print("data::::::${cart.carts![0].product![0].brand}");
   // SharedPrefsUtils.saveCart(cart);
@@ -48,17 +52,31 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  // final GoRouter router;
   // final NavigationCubit navigationCubit;
-  const MyApp({super.key});
+  const MyApp({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      routeInformationProvider: AppRouter.router.routeInformationProvider,
-      routeInformationParser: AppRouter.router.routeInformationParser,
-      routerDelegate: AppRouter.router.routerDelegate,
-      // routerConfig: AppRoter,
+    return ScreenUtilInit(
+      designSize: Size(375, 812),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          routeInformationProvider: AppRouter.router.routeInformationProvider,
+          routeInformationParser: AppRouter.router.routeInformationParser,
+          routerDelegate: AppRouter.router.routerDelegate,
+          builder: (context, child) {
+            ScreenUtil.init(context);
+            return child!;
+          },
+          // routerConfig: AppRoter,
+        );
+      },
     );
   }
 }

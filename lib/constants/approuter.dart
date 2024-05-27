@@ -21,6 +21,7 @@ abstract class Approutes {
   static const productRoute = '/product';
   static const productCategory = 'products';
   static const loginRoute = '/login';
+  static const searchROute = '/search';
 }
 
 abstract class AppRouter {
@@ -54,7 +55,12 @@ abstract class AppRouter {
             path: Approutes.homeRoute,
             pageBuilder: (context, state) =>
                 NoTransitionPage(child: HomeScreen()),
-            //TODO: define the routes propely here
+            // routes: [
+            //   GoRoute(
+            //       path: Approutes.searchROute,
+            //       parentNavigatorKey: _shellNavigatorKey,
+            //       builder: (context, state) => SearchPage())
+            // ]
 
             // routes: [
             //   GoRoute(path: Approutes.productRoute,

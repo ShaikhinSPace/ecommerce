@@ -4,7 +4,7 @@ sealed class CategoriesState extends Equatable {
   const CategoriesState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 final class CategoriesInitial extends CategoriesState {}
@@ -12,11 +12,11 @@ final class CategoriesInitial extends CategoriesState {}
 final class CategoriesLoading extends CategoriesState {}
 
 final class CategoriesLoaded extends CategoriesState {
-  final List categoryList;
-  CategoriesLoaded(this.categoryList);
+  final List<CategoryModel>? categoryModel;
+  CategoriesLoaded(this.categoryModel);
 
   @override
-  List<Object> get props => [categoryList];
+  List<Object?> get props => [categoryModel];
 }
 
 final class CategoriesError extends CategoriesState {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/presentation/features/home/home.dart';
+import 'package:flutter_ecommerce/presentation/features/searchbar/searchbar.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar(
@@ -34,10 +35,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget _buildSearchBar() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: SearchBar(
-        backgroundColor: MaterialStatePropertyAll(AppCOlors.secondary),
-        leading: Icon(Icons.search),
-      ),
+      child: CustomSearchBar(
+          // searchName: TextEditingController(),
+          ),
     );
   }
 

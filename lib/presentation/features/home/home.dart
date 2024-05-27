@@ -37,7 +37,6 @@ class _HomeScreenState extends State<HomeScreen> {
     homeBloc.add(LoadProductsEvent());
     SharedPrefsUtils.saveCart();
     SharedPrefsUtils.setAuthUser();
-    SharedPrefsUtils.saveNewCart();
     final abc = SharedPrefsUtils().isLoggedIn();
     print("isloggedin:::$abc");
 
@@ -122,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildCard(BuildContext context, Products? model) {
     return GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, childAspectRatio: 0.75),
+            crossAxisCount: 2, childAspectRatio: 0.6),
         itemCount: model!.products!.length,
         itemBuilder: (context, index) {
 //           Future<void> getDataaddBloc() async {
@@ -131,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
 // CartBloc.of(context).add(onAddToCart(userID, id, quantity))          }
 
           final String title = model.products![index].title ?? '';
-          final int price = model.products![index].price ?? 0;
+          final double price = model.products![index].price ?? 0;
           final String rating = model.products![index].rating.toString();
           final int discountpercent =
               model.products![index].discountPercentage!.toInt();
@@ -140,10 +139,9 @@ class _HomeScreenState extends State<HomeScreen> {
           final String image = model.products![index].thumbnail ?? '';
           return CustomCard(
             onpressed: () async {
-              // final User? authUser = await SharedPrefsUtils.getUser();
-              // final int userID = authUser!.id;
-              // BlocProvider.of<CartBloc>(context)
-              //     .add(onAddToCart(userID, model.products![index].id!, 1));
+              // final Cart? cart = await SharedPrefsUtils.getCart();
+              // SharedPrefsUtils.saveNewCart(
+              //     cart?.carts![0].id ?? 0, model.products![index].id ?? 0, 1);
             },
             name: title,
             discountPercent: discountpercent,

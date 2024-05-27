@@ -12,10 +12,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       try {
         emit(ProfileInitial());
         AuthUser user = await SharedPrefsUtils().getAuthUser();
-        print('data::::::::${user.bank!.iban}');
+        print('data::::::::${user.bank}');
         emit(ProfileLoaded(user));
       } catch (e) {
-        emit(ProfileError('error'));
+        emit(ProfileError(e.toString()));
       }
     });
   }

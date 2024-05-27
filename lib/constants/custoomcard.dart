@@ -3,11 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/models/products_model.dart';
 import 'package:flutter_ecommerce/presentation/features/home/home.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomCard extends StatefulWidget {
   final String name;
   Product? product;
-  final int price;
+  final double price;
   final String discountedprice;
   final int discountPercent;
   final String image;
@@ -55,9 +56,9 @@ class _CustomCardState<T extends CustomCard> extends State<T> {
             Text(widget.name),
             Row(
               children: [
-                const Icon(
+                Icon(
                   Icons.star,
-                  size: 15,
+                  size: 20.sp,
                   color: Color.fromARGB(255, 255, 187, 0),
                 ),
                 Text(

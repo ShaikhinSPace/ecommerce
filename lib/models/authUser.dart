@@ -11,14 +11,13 @@ class AuthUser {
   final String? phone;
   final String? username;
   final String? password;
-  final DateTime? birthDate;
+  final String? birthDate;
   final String? image;
   final String? bloodGroup;
-  final int? height;
+  final double? height;
   final double? weight;
   final String? eyeColor;
   final Hair? hair;
-  final String? domain;
   final String? ip;
   final Address? address;
   final String? macAddress;
@@ -28,6 +27,8 @@ class AuthUser {
   final String? ein;
   final String? ssn;
   final String? userAgent;
+  final Crypto? crypto;
+  final String? role;
 
   AuthUser({
     this.id,
@@ -47,7 +48,6 @@ class AuthUser {
     this.weight,
     this.eyeColor,
     this.hair,
-    this.domain,
     this.ip,
     this.address,
     this.macAddress,
@@ -57,6 +57,8 @@ class AuthUser {
     this.ein,
     this.ssn,
     this.userAgent,
+    this.crypto,
+    this.role,
   });
 
   factory AuthUser.fromRawJson(String str) =>
@@ -75,16 +77,13 @@ class AuthUser {
         phone: json["phone"],
         username: json["username"],
         password: json["password"],
-        birthDate: json["birthDate"] == null
-            ? null
-            : DateTime.parse(json["birthDate"]),
+        birthDate: json["birthDate"],
         image: json["image"],
         bloodGroup: json["bloodGroup"],
-        height: json["height"],
+        height: json["height"]?.toDouble(),
         weight: json["weight"]?.toDouble(),
         eyeColor: json["eyeColor"],
         hair: json["hair"] == null ? null : Hair.fromJson(json["hair"]),
-        domain: json["domain"],
         ip: json["ip"],
         address:
             json["address"] == null ? null : Address.fromJson(json["address"]),
@@ -96,6 +95,8 @@ class AuthUser {
         ein: json["ein"],
         ssn: json["ssn"],
         userAgent: json["userAgent"],
+        crypto: json["crypto"] == null ? null : Crypto.fromJson(json["crypto"]),
+        role: json["role"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -109,15 +110,13 @@ class AuthUser {
         "phone": phone,
         "username": username,
         "password": password,
-        "birthDate":
-            "${birthDate!.year.toString().padLeft(4, '0')}-${birthDate!.month.toString().padLeft(2, '0')}-${birthDate!.day.toString().padLeft(2, '0')}",
+        "birthDate": birthDate,
         "image": image,
         "bloodGroup": bloodGroup,
         "height": height,
         "weight": weight,
         "eyeColor": eyeColor,
         "hair": hair?.toJson(),
-        "domain": domain,
         "ip": ip,
         "address": address?.toJson(),
         "macAddress": macAddress,
@@ -127,22 +126,28 @@ class AuthUser {
         "ein": ein,
         "ssn": ssn,
         "userAgent": userAgent,
+        "crypto": crypto?.toJson(),
+        "role": role,
       };
 }
 
 class Address {
   final String? address;
   final String? city;
-  final Coordinates? coordinates;
-  final String? postalCode;
   final String? state;
+  final String? stateCode;
+  final String? postalCode;
+  final Coordinates? coordinates;
+  final String? country;
 
   Address({
     this.address,
     this.city,
-    this.coordinates,
-    this.postalCode,
     this.state,
+    this.stateCode,
+    this.postalCode,
+    this.coordinates,
+    this.country,
   });
 
   factory Address.fromRawJson(String str) => Address.fromJson(json.decode(str));
@@ -152,19 +157,23 @@ class Address {
   factory Address.fromJson(Map<String, dynamic> json) => Address(
         address: json["address"],
         city: json["city"],
+        state: json["state"],
+        stateCode: json["stateCode"],
+        postalCode: json["postalCode"],
         coordinates: json["coordinates"] == null
             ? null
             : Coordinates.fromJson(json["coordinates"]),
-        postalCode: json["postalCode"],
-        state: json["state"],
+        country: json["country"],
       );
 
   Map<String, dynamic> toJson() => {
         "address": address,
         "city": city,
-        "coordinates": coordinates?.toJson(),
-        "postalCode": postalCode,
         "state": state,
+        "stateCode": stateCode,
+        "postalCode": postalCode,
+        "coordinates": coordinates?.toJson(),
+        "country": country,
       };
 }
 
@@ -230,16 +239,16 @@ class Bank {
 }
 
 class Company {
-  final Address? address;
   final String? department;
   final String? name;
   final String? title;
+  final Address? address;
 
   Company({
-    this.address,
     this.department,
     this.name,
     this.title,
+    this.address,
   });
 
   factory Company.fromRawJson(String str) => Company.fromJson(json.decode(str));
@@ -247,18 +256,46 @@ class Company {
   String toRawJson() => json.encode(toJson());
 
   factory Company.fromJson(Map<String, dynamic> json) => Company(
-        address:
-            json["address"] == null ? null : Address.fromJson(json["address"]),
         department: json["department"],
         name: json["name"],
         title: json["title"],
+        address:
+            json["address"] == null ? null : Address.fromJson(json["address"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "address": address?.toJson(),
         "department": department,
         "name": name,
         "title": title,
+        "address": address?.toJson(),
+      };
+}
+
+class Crypto {
+  final String? coin;
+  final String? wallet;
+  final String? network;
+
+  Crypto({
+    this.coin,
+    this.wallet,
+    this.network,
+  });
+
+  factory Crypto.fromRawJson(String str) => Crypto.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Crypto.fromJson(Map<String, dynamic> json) => Crypto(
+        coin: json["coin"],
+        wallet: json["wallet"],
+        network: json["network"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "coin": coin,
+        "wallet": wallet,
+        "network": network,
       };
 }
 

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce/models/cart_model.dart';
 import 'package:flutter_ecommerce/presentation/features/cart/bloc/cart_bloc.dart';
 import 'package:flutter_ecommerce/presentation/features/home/home.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -95,7 +96,7 @@ class CartScreen extends StatelessWidget {
                     child: Image.network(product!.thumbnail ?? '')),
                 const SizedBox(height: 5),
                 Text(
-                  'Price: \$${product?.discountedPrice?.toStringAsFixed(2) ?? '0.00'}',
+                  'Price: \$${product.price?.toStringAsFixed(2) ?? '0.00'}',
                   style: TextStyle(color: AppCOlors.SecondaryText),
                 ),
                 ElevatedButton(
@@ -116,8 +117,7 @@ class CartScreen extends StatelessWidget {
   Widget _buildCheckout(BuildContext context, Cart cart) {
     final totalPrice = cart.carts?.first.products?.fold<double>(
           0.0,
-          (previousValue, product) =>
-              previousValue + (product.discountedPrice ?? 0),
+          (previousValue, product) => previousValue + (product.price ?? 0),
         ) ??
         0.0;
 

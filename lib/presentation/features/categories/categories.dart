@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_ecommerce/constants/approuter.dart';
+import 'package:flutter_ecommerce/models/category_model.dart';
 import 'package:flutter_ecommerce/presentation/features/categories/bloc/categories_bloc.dart';
 import 'package:flutter_ecommerce/presentation/features/home/home.dart';
 import 'package:go_router/go_router.dart';
@@ -66,7 +67,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   child: CircularProgressIndicator(),
                 );
               } else if (state is CategoriesLoaded) {
-                return _buildList(context, state.categoryList);
+                return _buildList(context, state.categoryModel!);
               }
               return Container();
             },
@@ -76,7 +77,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     );
   }
 
-  _buildList(BuildContext context, List categorylist) {
+  _buildList(BuildContext context, List<CategoryModel> categorylist) {
     return ListView.builder(
       itemCount: categorylist.length,
       itemBuilder: (context, index) {
@@ -94,7 +95,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    categorylist[index].toString().toUpperCase(),
+                    categorylist[index].name.toString().toUpperCase(),
                     style: TextStyle(
                         color: AppCOlors.primary, fontWeight: FontWeight.bold),
                   ),
